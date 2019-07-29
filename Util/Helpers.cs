@@ -1,0 +1,94 @@
+﻿using FEL_JAMIRA_WEB_APP.Controllers;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Localizacao;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+
+namespace FEL_JAMIRA_WEB_APP.Util
+{
+    public class Helpers
+    {
+
+        /// <summary>
+        /// Encrypt string
+        /// </summary>
+        /// <param name="DecryptedStr"></param>
+        /// <returns></returns>
+        public static string Encrypt(string DecryptedStr)
+        {
+            Byte[] b = System.Text.ASCIIEncoding.ASCII.GetBytes(DecryptedStr);
+            string EncryptedStr = Convert.ToBase64String(b);
+            return EncryptedStr;
+        }
+
+        /// <summary>
+        /// Decrypt string
+        /// </summary>
+        /// <param name="CryptedStr"></param>
+        /// <returns></returns>
+        public static string Decrypt(string CryptedStr)
+        {
+            Byte[] b = Convert.FromBase64String(CryptedStr);
+            string DecryptedStr = System.Text.ASCIIEncoding.ASCII.GetString(b);
+            return DecryptedStr;
+        }
+
+        public static SelectList GetSelectList(string TituloRetorno)
+        {
+            switch (TituloRetorno)
+            {
+                case "Cidades":
+                    using (BaseController<List<Cidade>> b1 = new BaseController<List<Cidade>>())
+                    {
+                        ResponseViewModel<List<Cidade>> retornoCidades = new ResponseViewModel<List<Cidade>>();
+                        var task = Task.Run(async () => {
+                            ResponseViewModel<List<Cidade>> returnTask = await b1.GetObjectAsync("Cidades/GetAll");
+                            retornoCidades = returnTask;
+                        });
+                        task.Wait();
+
+                        List<SelectListItem> selectListItem = new List<SelectListItem>();
+                        SelectListItem selectedListItem = new SelectListItem { Selected = true, Text = "Selecione", Value = "99999" };
+                        selectListItem.Add(selectedListItem);
+                        
+                        foreach (var item in retornoCidades.Data)
+                        {
+                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.NomeCidade, Value = item.Id.ToString() };
+                            selectListItem.Add(selectTempListItem);
+                        }
+                        SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);
+                        return selectList;
+
+                    }
+                case "Estados":
+                    using (BaseController<List<Estado>> b2 = new BaseController<List<Estado>>())
+                    {
+                        ResponseViewModel<List<Estado>> retornoEstados = new ResponseViewModel<List<Estado>>();
+
+                        var task = Task.Run(async () => {
+                            ResponseViewModel<List<Estado>> returnTask = await b2.GetObjectAsync("Estados/GetAll");
+                            retornoEstados = returnTask;
+                        });
+                        task.Wait();
+
+                        List<SelectListItem> selectListItem = new List<SelectListItem>();
+                        SelectListItem selectedListItem = new SelectListItem { Selected = true, Text = "Selecione", Value = "99999" };
+                        selectListItem.Add(selectedListItem);
+
+                        foreach (var item in retornoEstados.Data)
+                        {
+                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.NomeEstado, Value = item.Id.ToString() };
+                            selectListItem.Add(selectTempListItem);
+                        }
+                        SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);
+                        return selectList;
+                    }
+                default:
+                    return new SelectList(null);
+                    break;
+            }
+        }
+    }
+}
