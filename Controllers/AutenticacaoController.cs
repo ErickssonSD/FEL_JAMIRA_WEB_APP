@@ -56,8 +56,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: Autenticacao/RegistrarFornecedor
         public ActionResult RegistrarFornecedor()
         {
-            ViewBag.Cidade = Helpers.GetSelectList("Cidades");
-            ViewBag.Estado = Helpers.GetSelectList("Estados");
+            TempData["Cidade"] = Helpers.GetSelectList("Cidades") as SelectList;
+            TempData["Estado"] = Helpers.GetSelectList("Estados") as SelectList;
 
             return View();
         }
@@ -67,7 +67,12 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         {
             if (ModelState.IsValid)
             {
-                ResponseViewModel<Usuario> responseViewModel = AddObject(cadastroFornecedor, "Estacionamentos/CadastrarFornecedor");
+                ResponseViewModel<Usuario> responseViewModel = new ResponseViewModel<Usuario>();
+                Task.Run(async () => {
+                    ResponseViewModel<Usuario> returnResponse = await AddObject(cadastroFornecedor, "Estacionamentos/CadastrarFornecedor");
+                    responseViewModel = returnResponse;
+                }).Wait();
+               
                 if(responseViewModel.Sucesso)
                     return RedirectToAction("Login");
                 return View();

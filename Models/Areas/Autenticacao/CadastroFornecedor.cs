@@ -11,16 +11,19 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
         [Required(ErrorMessage = "O campo nome do estabelecimento é obrigatório")]
         [Display(Name = "Nome do Proprietario:")]
         public string NomeProprietario { get; set; }
+        [Required(ErrorMessage = "O campo nome do estabelecimento é obrigatório")]
+        [Display(Name = "Nome do Estabelecimento:")]
+        public string NomeEstacionamento { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Data de Nascimento do Proprietário:")]
-        public DateTime Nascimento { get; set; }
-        [CustomValidationCPF(ErrorMessage = "CPF inválido")]
+        public DateTime? Nascimento { get; set; }
+        //[CustomValidationCPF(ErrorMessage = "CPF inválido")]
         [Display(Name = "CPF do Proprietário:")]
         public string CPF { get; set; }
         [Display(Name = "RG do Proprietário:")]
         public string RG { get; set; }
-        [Required(ErrorMessage = "O campo nome do estabelecimento é obrigatório")]
-        [Display(Name = "Nome do Estabelecimento:")]
+        [Required(ErrorMessage = "O campo apelido é obrigatório:")]
+        [Display(Name = "Apelido:")]
         public string Nickname { get; set; }
         [Display(Name = "CNPJ:")]
         public string CNPJ { get; set; }
@@ -37,21 +40,21 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
         [Compare("Senha", ErrorMessage = "A senha e a confirmação da senha são diferentes")]
         public string ConfirmaSenha { get; set; }
         [Required(ErrorMessage = "O campo rua é obrigatório")]
-        [Display(Name = "Rua:")]
+        [Display(Name = "Rua do Proprietário:")]
         public string Rua { get; set; }
         [Required(ErrorMessage = "O campo número é obrigatório")]
-        [Display(Name = "Número:")]
+        [Display(Name = "Número do Proprietário:")]
         public int Numero { get; set; }
         [Required(ErrorMessage = "O campo bairro é obrigatório")]
-        [Display(Name = "Bairro:")]
+        [Display(Name = "Bairro Residente:")]
         public string Bairro { get; set; }
-        [Display(Name = "CEP:")]
+        [Display(Name = "CEP do Proprietário:")]
         public string CEP { get; set; }
-        [Display(Name = "Complemento:")]
+        [Display(Name = "Complemento do Proprietário:")]
         public string Complemento { get; set; }
-        [Display(Name = "Cidade:")]
+        [Display(Name = "Cidade do Proprietário:")]
         public int IdCidade { get; set; }
-        [Display(Name = "Estado:")]
+        [Display(Name = "Estado do Proprietário:")]
         public int IdEstado { get; set; }
     }
 }

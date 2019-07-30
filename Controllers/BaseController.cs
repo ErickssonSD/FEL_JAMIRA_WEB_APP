@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace FEL_JAMIRA_WEB_APP.Controllers
 {
@@ -35,7 +36,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 throw ex;
             }
         }
-        public ResponseViewModel<T> AddObject(object oParametro, string complemento)
+        public async Task<ResponseViewModel<T>> AddObject(object oParametro, string complemento)
         {
             try
             {
@@ -56,6 +57,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 request.AddParameter("undefined", data, ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
 
+                responseViewModel = new JavaScriptSerializer().Deserialize<ResponseViewModel<T>>(response.Content);
                 return responseViewModel;
             }
             catch (Exception ex)
