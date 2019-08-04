@@ -10,14 +10,17 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
     public class CadastroCliente
     {
         [Required(ErrorMessage = "O campo nome é obrigatório")]
-        [Display(Name = "Nome:")]
+        [Display(Name = "Nome Completo:")]
+        public string Nome { get; set; }
+        [Required(ErrorMessage = "O campo apelido é obrigatório")]
+        [Display(Name = "Apelido:")]
         public string Nickname { get; set; }
-        [CustomValidationCPF(ErrorMessage = "CPF inválido")]
+        //[CustomValidationCPF(ErrorMessage = "CPF inválido")]
         [Display(Name = "CPF:")]
         public string CPF { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Data de Nascimento:")]
-        public DateTime Nascimento { get; set; }
+        public DateTime? Nascimento { get; set; }
         [Display(Name = "RG:")]
         public string RG { get; set; }
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "O Email inserido não é válido.")]
@@ -43,5 +46,9 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
         public string CEP { get; set; }
         [Display(Name = "Complemento:")]
         public string Complemento { get; set; }
+        [Display(Name = "Cidade Residente:")]
+        public int IdCidade { get; set; }
+        [Display(Name = "Estado Residente:")]
+        public int IdEstado { get; set; }
     }
 }

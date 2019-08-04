@@ -178,6 +178,7 @@
     </Compile>
     <Compile Include="Models\Areas\Autenticacao\CadastroCliente.cs" />
     <Compile Include="Models\Areas\Autenticacao\CadastroFornecedor.cs" />
+    <Compile Include="Models\Areas\Autenticacao\LoginRequisicao.cs" />
     <Compile Include="Models\Areas\Autenticacao\Usuario.cs" />
     <Compile Include="Models\Areas\Localizacao\Cidade.cs" />
     <Compile Include="Models\Areas\Localizacao\Estado.cs" />

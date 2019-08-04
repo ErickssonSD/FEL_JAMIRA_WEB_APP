@@ -22,7 +22,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Usuario usuario)
+        public ActionResult Login(LoginRequisicao usuario)
         {
             if (ModelState.IsValid)
             {
@@ -30,13 +30,16 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             }
             else
             {
-                return View();
+                return View(usuario);
             }
         }
 
         // GET: Autenticacao/RegistrarCliente
         public ActionResult RegistrarCliente()
         {
+            ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
+            ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
+
             return View();
         }
 
@@ -45,19 +48,28 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View();
+                ResponseViewModel<Usuario> responseViewModel = new ResponseViewModel<Usuario>();
+                Task.Run(async () => {
+                    ResponseViewModel<Usuario> returnResponse = await AddObject(cadastroCliente, "Clientes/CadastrarCliente");
+                    responseViewModel = returnResponse;
+                }).Wait();
+
+                if (responseViewModel.Sucesso)
+                    return RedirectToAction("Login");
+                else
+                    return View(cadastroCliente);
             }
             else
             {
-                return View();
+                return View(cadastroCliente);
             }
         }
 
         // GET: Autenticacao/RegistrarFornecedor
         public ActionResult RegistrarFornecedor()
         {
-            TempData["Cidade"] = Helpers.GetSelectList("Cidades") as SelectList;
-            TempData["Estado"] = Helpers.GetSelectList("Estados") as SelectList;
+            ViewBag["Cidade"] = Helpers.GetSelectList("Cidades") as SelectList;
+            ViewBag["Estado"] = Helpers.GetSelectList("Estados") as SelectList;
 
             return View();
         }
@@ -75,11 +87,12 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                
                 if(responseViewModel.Sucesso)
                     return RedirectToAction("Login");
-                return View();
+                else
+                    return View(cadastroFornecedor);
             }
             else
             {
-                return View();
+                return View(cadastroFornecedor);
             }
         }
     }
