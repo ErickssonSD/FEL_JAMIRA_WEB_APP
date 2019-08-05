@@ -36,7 +36,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 throw ex;
             }
         }
-        public async Task<ResponseViewModel<T>> AddObject(object oParametro, string complemento)
+        public async Task<ResponseViewModel<T>> PostObject(object oParametro, string complemento)
         {
             try
             {
@@ -71,6 +71,12 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             string url = URI + complemento;
             var uri = new Uri(string.Format(url));
             await client.DeleteAsync(uri);
+        }
+        public void DesconectarUsuario()
+        {
+            Util.Util.DesconectarUsuario();
+            Dispose();
+            RedirectToAction("Login","Autenticacao");
         }
     }
 }

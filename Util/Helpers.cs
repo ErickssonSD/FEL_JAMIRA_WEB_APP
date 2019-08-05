@@ -4,6 +4,7 @@ using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace FEL_JAMIRA_WEB_APP.Util
@@ -34,7 +35,11 @@ namespace FEL_JAMIRA_WEB_APP.Util
             string DecryptedStr = System.Text.ASCIIEncoding.ASCII.GetString(b);
             return DecryptedStr;
         }
-
+        /// <summary>
+        /// Lista para que retorne um conjunto de valores de seleção.
+        /// </summary>
+        /// <param name="TituloRetorno"></param>
+        /// <returns></returns>
         public static SelectList GetSelectList(string TituloRetorno)
         {
             switch (TituloRetorno)
@@ -87,7 +92,31 @@ namespace FEL_JAMIRA_WEB_APP.Util
                     }
                 default:
                     return new SelectList(null);
-                    break;
+            }
+        }
+        /// <summary>
+        /// Busca o IP do Usuário
+        /// </summary>
+        /// <returns>string</returns>
+        public static string GetIPAddress()
+        {
+            try
+            {
+                HttpContext context = HttpContext.Current;
+                string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                var IpAddress = context.Request.ServerVariables["REMOTE_ADDR"];
+
+                if (!string.IsNullOrEmpty(IpAddress))
+                    return IpAddress;
+                else
+                {
+                    string[] addresses = ipAddress.Split(',');
+                    return addresses[0];
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao obter Endereço IP - " + e.Message);
             }
         }
     }

@@ -26,7 +26,24 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View();
+                ResponseViewModel<Usuario> loginUsuario = new ResponseViewModel<Usuario>();
+                Task.Run(async () => {
+                    ResponseViewModel<Usuario> returnResponse = await PostObject(usuario, "Usuarios/Login");
+                    loginUsuario = returnResponse;
+                }).Wait();
+                if (loginUsuario.Sucesso.Equals(true))
+                {
+                    string KeyCookieIP = Guid.NewGuid().ToString().Substring(0, 7);
+
+                    AdministradorAutenticacao.SetCookieParaUsuario(loginUsuario.Data, true, KeyCookieIP);
+
+                    if (loginUsuario.Data.Level.Equals(1))
+                        return RedirectToAction("MenuDoFornecedor","Menu");
+                    else
+                        return RedirectToAction("MenuDoCliente", "Menu");
+                }
+                else
+                    return View(usuario);
             }
             else
             {
@@ -50,7 +67,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             {
                 ResponseViewModel<Usuario> responseViewModel = new ResponseViewModel<Usuario>();
                 Task.Run(async () => {
-                    ResponseViewModel<Usuario> returnResponse = await AddObject(cadastroCliente, "Clientes/CadastrarCliente");
+                    ResponseViewModel<Usuario> returnResponse = await PostObject(cadastroCliente, "Clientes/CadastrarCliente");
                     responseViewModel = returnResponse;
                 }).Wait();
 
@@ -81,7 +98,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             {
                 ResponseViewModel<Usuario> responseViewModel = new ResponseViewModel<Usuario>();
                 Task.Run(async () => {
-                    ResponseViewModel<Usuario> returnResponse = await AddObject(cadastroFornecedor, "Estacionamentos/CadastrarFornecedor");
+                    ResponseViewModel<Usuario> returnResponse = await PostObject(cadastroFornecedor, "Estacionamentos/CadastrarFornecedor");
                     responseViewModel = returnResponse;
                 }).Wait();
                

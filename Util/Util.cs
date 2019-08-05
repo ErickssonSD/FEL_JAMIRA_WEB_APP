@@ -79,5 +79,19 @@ namespace FEL_JAMIRA_WEB_APP.Util
 
             return true;
         }
+        public static void DesconectarUsuario()
+        {
+            try
+            {
+                //Task.Run(() => EasyWebAPI_Post(ControllerContext, User, "dG9rZW5pbml0aWFsaXphdG9y", "", "Base/DisconnectUsers"));
+                //LogOut
+                AdministradorAutenticacao.LimparCookies("KeyCookieIP");
+                AdministradorAutenticacao.RemoverCookieDeUsuario();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
