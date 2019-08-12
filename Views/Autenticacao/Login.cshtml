@@ -17,13 +17,6 @@
 <body>
     <div class="container body-content">
         <div class="container">
-            <h2 class="center">Registre-se Gratuitamente!!</h2>
-            <div class="form-horizontal center">
-                <div class="mesmaLinha">
-                    @Html.ActionLink("Sou um cliente!", "RegistrarCliente", "Autenticacao", new { @class = "btn btn-primary btn-lg mesmoTamanho" })
-                    @Html.ActionLink("Sou um Fornecedor!", "RegistrarFornecedor", "Autenticacao", new { @class = "btn btn-success btn-lg mesmoTamanho" })
-                </div>
-            </div>
             <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
 
                 <div class="row">
@@ -36,7 +29,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title text-center">Area de Autenticação</div>
+                        <div class="panel-title text-center">Área de Autenticação</div>
                     </div>
 
                     <div class="panel-body">
@@ -70,7 +63,15 @@
                         </form>
                     </div>
                 </div>
+                <h2 class="center">Registre-se Gratuitamente!!</h2>
+                <div class="form-horizontal center">
+                    <div class="mesmaLinha">
+                        @Html.ActionLink("Sou um Cliente!", "RegistrarCliente", "Autenticacao", new { @class = "btn btn-primary btn-lg mesmoTamanho" })
+                        @Html.ActionLink("Sou um Fornecedor!", "RegistrarFornecedor", "Autenticacao", new { @class = "btn btn-success btn-lg mesmoTamanho" })
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <div id="particles"></div>
