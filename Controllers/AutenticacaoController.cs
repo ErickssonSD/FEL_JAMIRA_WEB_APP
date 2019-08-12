@@ -85,8 +85,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: Autenticacao/RegistrarFornecedor
         public ActionResult RegistrarFornecedor()
         {
-            ViewBag["Cidade"] = Helpers.GetSelectList("Cidades") as SelectList;
-            ViewBag["Estado"] = Helpers.GetSelectList("Estados") as SelectList;
+            ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
+            ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
 
             return View();
         }

@@ -13,5 +13,7 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
         public string Login { get; set; }
         [Required(ErrorMessage = "O campo de senha é obrigatório.")]
         public string Senha { get; set; }
+        [Display(Name ="Continuar Conectado: ")]
+        public bool ManterConectado { get; set; }
     }
 }
