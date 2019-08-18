@@ -6,9 +6,10 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top" style="border-color:#b3b1b1;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,25 +17,40 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("FEL_JAMIRA", "Index", "Menu", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("JAMIRA", "Index", "Menu", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="active">@Html.ActionLink("Menu", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Meus Dados", "About", "Home")</li>
+                    <li>@Html.ActionLink("Fale Conosco", "Contact", "Home")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="glyphicon glyphicon-user"></span> Chitãozinho <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Alterar Dados", "Logout", "Autenticação")</li>
+                            <li>@Html.ActionLink("Desconectar", "MudarSenha", "Autenticação")</li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - FEL_JAMIRA - Todos os direitos reservados.</p>
-        </footer>
     </div>
+    <footer class="footerClasse">
+        <hr />
+        <div class="center">
+            <p>&copy; @DateTime.Now.Year - FEL_JAMIRA - Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

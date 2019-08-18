@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Menu do Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="well well-lg" style="width:100%; display: flow-root; margin-top:1%;">
+        <h2><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Minhas Últimas Atividades</h2>
+        <div style="width: 55%; float:left;">
+            <div class="caixa">
+                <p style="width:100%;margin-top:0%; text-align:center;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><b> Últimos Estacionamentos</b></p>
+                <div class="dentroCaixa">
+                    <table>
+                        <tr>
+                            <th>Estacionamento:</th>
+                            <th>Período De:</th>
+                            <th>Período Até:</th>
+                        </tr>
+                        <tr>
+                            <td>Grand Park</td>
+                            <td>07/08/2019 - 15:00</td>
+                            <td>07/08/2019 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Grand Touris</td>
+                            <td>08/08/2019 - 15:00</td>
+                            <td>08/08/2019 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Grand Mark</td>
+                            <td>09/08/2019 - 15:00</td>
+                            <td>09/08/2019 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Chateaou Mark</td>
+                            <td>19/08/2019 - 15:00</td>
+                            <td>19/08/2019 - 18:00</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <button style="float:right; margin-top: 3%; width:100%;" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Ver Histórico</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 44%; float:right;">
+            <div class="caixa">
+                <p style="width:100%;margin-top:3%;text-align:center;"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <b>Últimas Transações</b></p>
+                <div class="dentroCaixa">
+                    <table>
+                        <tr>
+                            <th>Valor:</th>
+                            <th>Data:</th>
+                        </tr>
+                        <tr>
+                            <td>150,00$</td>
+                            <td>07/08/2019</td>
+                        </tr>
+                        <tr>
+                            <td>200,00$</td>
+                            <td>08/08/2019</td>
+                        </tr>
+                        <tr>
+                            <td>400,00$</td>
+                            <td>09/08/2019</td>
+                        </tr>
+                        <tr>
+                            <td>100,00$</td>
+                            <td>19/08/2019</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <button style="float:right; margin-top: 3%; width:100%;" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Ver Histórico</button>
+                </div>
+            </div>
+        </div>
+        <button style="margin-top: 3%; width:100%;" class="btn btn-success btn-lg">Comprar Créditos <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span></button>
+    </div>
+
+
+@Styles.Render("~/Content/menuUsuarios")

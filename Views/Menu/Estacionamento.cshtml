@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Menu do Fornecedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/jquery")
+
+<div class="well well-lg" style="width:100%; display: flow-root; margin-top:1%;">
+    <div style="display:inline-flex; width:100%;">
+        <div style="width:70%; display:inline">
+            <h2 style="float:left;"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Minhas Últimas Atividades</h2>
+        </div>
+        <div style="width:30%; display:inline">
+            <h2 style="float:right;" aria-label="Sua nota perante aos usuários." data-balloon-pos="up"> <span class="glyphicon glyphicon-star" style="vertical-align:text-top;" aria-hidden="true"></span> 4.53</h2>
+        </div>
+    </div>
+    <div style="width: 55%; float:left;">
+        <div class="caixa">
+            <p style="width:100%;margin-top:0%; text-align:center;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><b> Últimos Clientes</b></p>
+            <div class="dentroCaixa">
+                <table>
+                    <tr>
+                        <th>Nome:</th>
+                        <th>Período De:</th>
+                        <th>Período Até:</th>
+                    </tr>
+                    <tr>
+                        <td>Jamilto</td>
+                        <td>07/08/2019 - 15:00</td>
+                        <td>07/08/2019 - 18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Jungo</td>
+                        <td>08/08/2019 - 15:00</td>
+                        <td>08/08/2019 - 18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Timbó</td>
+                        <td>09/08/2019 - 15:00</td>
+                        <td>09/08/2019 - 18:00</td>
+                    </tr>
+                    <tr>
+                        <td>Cristiano Ronaldo</td>
+                        <td>19/08/2019 - 15:00</td>
+                        <td>19/08/2019 - 18:00</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <button style="float:right; margin-top: 3%; width:100%;" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Ver Histórico</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 44%; float:right;">
+        <div class="caixa">
+            <p style="width:100%;margin-top:3%;text-align:center;"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> <b> Últimos Recebimentos</b></p>
+            <div class="dentroCaixa">
+                <table>
+                    <tr>
+                        <th>Valor:</th>
+                        <th style="text-align:center;" aria-label="Clique nos ícones para mais informações." data-balloon-pos="down">Mês:</th>
+                    </tr>
+                    <tr>
+                        <td>150,00$</td>
+                        <td style="text-align:center;">Janeiro <span id="mes2" style="float: right;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="modal" data-target="#myModal"></span></td>
+                    </tr>
+                    <tr>
+                        <td>200,00$</td>
+                        <td style="text-align:center;">Fevereiro <span style="float: right;" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></td>
+                    </tr>
+                    <tr>
+                        <td>400,00$</td>
+                        <td style="text-align:center;">Março <span style="float: right;" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></td>
+                    </tr>
+                    <tr>
+                        <td>100,00$</td>
+                        <td style="text-align:center;">Abril <span style="float: right;" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <button style="float:right; margin-top: 3%; width:100%;" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Ver Histórico</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Título do modal</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-3 bg" style="display:contents;">
+                    <div class="loader" id="loader-6">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary">Salvar mudanças</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Styles.Render("~/Content/menuUsuarios")
+@Scripts.Render("~/bundles/menuFornecedor")

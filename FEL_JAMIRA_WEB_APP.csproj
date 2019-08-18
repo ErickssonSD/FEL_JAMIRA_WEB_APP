@@ -106,6 +106,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -171,18 +174,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AutenticacaoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\EstacionamentoController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Areas\Autenticacao\CadastroCliente.cs" />
-    <Compile Include="Models\Areas\Autenticacao\CadastroFornecedor.cs" />
+    <Compile Include="Models\Areas\Autenticacao\CadastroEstacionamento.cs" />
     <Compile Include="Models\Areas\Autenticacao\LoginRequisicao.cs" />
     <Compile Include="Models\Areas\Autenticacao\Usuario.cs" />
     <Compile Include="Models\Areas\Localizacao\Cidade.cs" />
     <Compile Include="Models\Areas\Localizacao\Endereco.cs" />
     <Compile Include="Models\Areas\Localizacao\Estado.cs" />
+    <Compile Include="Models\Areas\Modelagem do Sistema\Cliente.cs" />
+    <Compile Include="Models\Areas\Modelagem do Sistema\Estacionamento.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Pessoa.cs" />
+    <Compile Include="Models\Areas\MultiModelação\DadosCliente.cs" />
+    <Compile Include="Models\Areas\MultiModelação\DadosEstacionamento.cs" />
     <Compile Include="Models\Areas\Util\ResponseViewModel.cs" />
     <Compile Include="Models\Areas\Util\ResponseViewModelGeneric.cs" />
     <Compile Include="Models\Areas\Util\Token.cs" />
@@ -194,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Areas\Login.css" />
+    <Content Include="Content\Areas\MenuUsuarios.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -205,6 +215,8 @@
     <Content Include="Imagens\Logo.PNG" />
     <Content Include="ReleaseNotes.css" />
     <Content Include="Scripts\Areas\Login.js" />
+    <Content Include="Scripts\Areas\MenuFornecedor.js" />
+    <Content Include="Content\Ballon.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -233,9 +245,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Autenticacao\Login.cshtml" />
     <Content Include="Views\Autenticacao\RegistrarCliente.cshtml" />
-    <Content Include="Views\Autenticacao\RegistrarFornecedor.cshtml" />
-    <Content Include="Views\Menu\MenuDoCliente.cshtml" />
-    <Content Include="Views\Menu\MenuDoFornecedor.cshtml" />
+    <Content Include="Views\Autenticacao\RegistrarEstacionamento.cshtml" />
+    <Content Include="Views\Menu\Cliente.cshtml" />
+    <Content Include="Views\Menu\Estacionamento.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Estacionamento\MeusDados.cshtml" />
+    <Content Include="Views\Cliente\MeusDados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

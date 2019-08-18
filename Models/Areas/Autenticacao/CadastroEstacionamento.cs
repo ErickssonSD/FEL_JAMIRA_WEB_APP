@@ -6,7 +6,7 @@ using System.Web;
 
 namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
 {
-    public class CadastroFornecedor
+    public class CadastroEstacionamento
     {
         [Required(ErrorMessage = "O campo nome do estabelecimento é obrigatório")]
         [Display(Name = "Nome do Proprietario:")]

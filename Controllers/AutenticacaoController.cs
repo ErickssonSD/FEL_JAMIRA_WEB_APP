@@ -82,8 +82,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             }
         }
 
-        // GET: Autenticacao/RegistrarFornecedor
-        public ActionResult RegistrarFornecedor()
+        // GET: Autenticacao/RegistrarEstacionamento
+        public ActionResult RegistrarEstacionamento()
         {
             ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
             ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
@@ -92,24 +92,24 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RegistrarFornecedor(CadastroFornecedor cadastroFornecedor)
+        public async Task<ActionResult> RegistrarEstacionamento(CadastroEstacionamento cadastroEstacionamento)
         {
             if (ModelState.IsValid)
             {
                 ResponseViewModel<Usuario> responseViewModel = new ResponseViewModel<Usuario>();
                 Task.Run(async () => {
-                    ResponseViewModel<Usuario> returnResponse = await PostObject(cadastroFornecedor, "Estacionamentos/CadastrarFornecedor");
+                    ResponseViewModel<Usuario> returnResponse = await PostObject(cadastroEstacionamento, "Estacionamentos/CadastrarFornecedor");
                     responseViewModel = returnResponse;
                 }).Wait();
                
                 if(responseViewModel.Sucesso)
                     return RedirectToAction("Login");
                 else
-                    return View(cadastroFornecedor);
+                    return View(cadastroEstacionamento);
             }
             else
             {
-                return View(cadastroFornecedor);
+                return View(cadastroEstacionamento);
             }
         }
     }
