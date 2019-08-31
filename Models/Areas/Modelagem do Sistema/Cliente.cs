@@ -5,7 +5,10 @@ using System.Web;
 
 namespace FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema
 {
-    public class Cliente
+    public class Cliente : Pessoa
     {
+        public int Id { get; set; }
+        public string Nickname { get; set; }
+        public bool TemCarro { get; set; }
     }
 }

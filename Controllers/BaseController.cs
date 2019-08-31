@@ -1,4 +1,7 @@
-﻿using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
+﻿using FEL_JAMIRA_WEB_APP.Models;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Cliente;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
@@ -18,8 +21,11 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
     //[SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
     public class BaseController<T> : Controller
     {
-        string URI = System.Configuration.ConfigurationManager.AppSettings["UrlWebAPI"]; 
-        string UrlParm = System.Configuration.ConfigurationManager.AppSettings["UrlParameter"];
+
+        string    URI = System.Configuration.ConfigurationManager.AppSettings["UrlWebAPI"]; 
+        string    UrlParm = System.Configuration.ConfigurationManager.AppSettings["UrlParameter"];
+        protected string idCookie;
+        protected Usuario _usuario;
 
         HttpClient client = new HttpClient();
         public async Task<ResponseViewModel<T>> GetObjectAsync(string complemento)
@@ -64,6 +70,21 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             {
                 throw ex;
             }
+        }
+        public int GetIdUsuario()
+        {
+            return _usuario.Id;
+        }
+        public void SetarUsuarioLogado(string id)
+        {
+            var task = Task.Run(async () => {
+                using (BaseController<Usuario> bUsuario = new BaseController<Usuario>())
+                { 
+                    var valorRetorno = await bUsuario.GetObjectAsync("Usuarios/Detalhes/" + id);
+                    _usuario = valorRetorno.Data;
+                }
+            });
+            task.Wait();
         }
         public async Task DeletaProdutoAsync(object produto, string complemento)
         {

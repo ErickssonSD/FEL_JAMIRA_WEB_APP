@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     var url = location.href;
 
-    if (url.indexOf("RegistrarFornecedor") !== -1) {
+    if (url.indexOf("RegistrarEstacionamento") !== -1) {
         var $Cnpj = $("#CNPJ");
         $Cnpj.mask('00.000.000/0000-00', { reverse: true });
     }

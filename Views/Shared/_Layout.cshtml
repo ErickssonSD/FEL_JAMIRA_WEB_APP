@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool inserteAlerta = ViewBag.InsereAlerta;
+    string nome = ViewBag.Nickname;
+    string mensagem = ViewBag.Cadastrar;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -21,21 +26,34 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">@Html.ActionLink("Menu", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Meus Dados", "About", "Home")</li>
-                    <li>@Html.ActionLink("Fale Conosco", "Contact", "Home")</li>
+                    <li class="active">@Html.ActionLink("Menu", "Index", "Menu")</li>
+                    <li>@Html.ActionLink("Meus Dados", "MeusDados", "Menu")</li>
+                    <li>@Html.ActionLink("Fale Conosco", "FaleConosco", "Menu")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    @if (inserteAlerta)
+                    {
+                        <li class="dropdown" aria-label="Você tem novos avisos!" data-balloon-pos="left">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="badge">1</span>
+                                <span class="glyphicon glyphicon-bell"></span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li style="display: inline-flex;">
+                                    @Html.ActionLink(mensagem, "DesconectarUsuario", "Autenticacao") <span class="glyphicon glyphicon-check" style="margin-top: 2.8%;padding-right: 2%;"></span>
+                                </li>
+                            </ul>
+                        </li>
+                    }
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="glyphicon glyphicon-user"></span> Chitãozinho <span class="caret"></span>
+                            <span class="glyphicon glyphicon-user"></span> Olá, @nome <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Alterar Dados", "Logout", "Autenticação")</li>
-                            <li>@Html.ActionLink("Desconectar", "MudarSenha", "Autenticação")</li>
+                            <li>@Html.ActionLink("Desconectar", "DesconectarUsuario", "Autenticacao")</li>
                         </ul>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -43,8 +61,7 @@
     <div class="container body-content">
         @RenderBody()
     </div>
-    <footer class="footerClasse">
-        <hr />
+    <footer style="background-color:#e7e7e7;" class="footerClasse">
         <div class="center">
             <p>&copy; @DateTime.Now.Year - FEL_JAMIRA - Todos os direitos reservados.</p>
         </div>

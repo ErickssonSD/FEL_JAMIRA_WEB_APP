@@ -35,15 +35,19 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 {
                     string KeyCookieIP = Guid.NewGuid().ToString().Substring(0, 7);
 
-                    AdministradorAutenticacao.SetCookieParaUsuario(loginUsuario.Data, true, KeyCookieIP);
+                    AdministradorAutenticacao.SetCookieParaUsuario(loginUsuario.Data, usuario.ManterConectado, KeyCookieIP);
 
                     if (loginUsuario.Data.Level.Equals(1))
-                        return RedirectToAction("MenuDoFornecedor","Menu");
+                        return RedirectToAction("Estacionamento", "Menu");
                     else
-                        return RedirectToAction("MenuDoCliente", "Menu");
+                        return RedirectToAction("Cliente", "Menu");
                 }
                 else
+                {
+                    ModelState.AddModelError(string.Empty, loginUsuario.Mensagem);
                     return View(usuario);
+                }
+                    
             }
             else
             {

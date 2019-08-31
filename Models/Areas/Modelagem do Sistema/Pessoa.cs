@@ -13,6 +13,7 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema
         public string RG { get; set; }
         public string Nome { get; set; }
         public DateTime? Nascimento { get; set; }
+        public DateTime DataCriacao { get; set; }
         public int IdEndereco { get; set; }
         public virtual Endereco EnderecoPessoa { get; set; }
     }

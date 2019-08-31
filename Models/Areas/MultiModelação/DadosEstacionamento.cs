@@ -40,21 +40,39 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação
         [Compare("Senha", ErrorMessage = "A senha e a confirmação da senha são diferentes")]
         public string ConfirmaSenha { get; set; }
         [Required(ErrorMessage = "O campo rua é obrigatório")]
-        [Display(Name = "Rua do Proprietário:")]
+        [Display(Name = "Rua:")]
         public string Rua { get; set; }
         [Required(ErrorMessage = "O campo número é obrigatório")]
-        [Display(Name = "Número do Proprietário:")]
+        [Display(Name = "Número:")]
         public int Numero { get; set; }
         [Required(ErrorMessage = "O campo bairro é obrigatório")]
-        [Display(Name = "Bairro Residente:")]
+        [Display(Name = "Bairro:")]
         public string Bairro { get; set; }
-        [Display(Name = "CEP do Proprietário:")]
+        [Display(Name = "CEP:")]
         public string CEP { get; set; }
-        [Display(Name = "Complemento do Proprietário:")]
+        [Display(Name = "Detalhes:")]
         public string Complemento { get; set; }
-        [Display(Name = "Cidade do Proprietário:")]
+        [Display(Name = "Cidade:")]
         public int IdCidade { get; set; }
-        [Display(Name = "Estado do Proprietário:")]
+        [Display(Name = "Estado:")]
         public int IdEstado { get; set; }
+
+        [Required(ErrorMessage = "O campo rua é obrigatório")]
+        [Display(Name = "Rua:")]
+        public string RuaEstabelecimento { get; set; }
+        [Required(ErrorMessage = "O campo número é obrigatório")]
+        [Display(Name = "Número:")]
+        public int NumeroEstabelecimento { get; set; }
+        [Required(ErrorMessage = "O campo bairro é obrigatório")]
+        [Display(Name = "Bairro:")]
+        public string BairroEstabelecimento { get; set; }
+        [Display(Name = "CEP:")]
+        public string CEPEstabelecimento { get; set; }
+        [Display(Name = "Detalhes:")]
+        public string ComplementoEstabelecimento { get; set; }
+        [Display(Name = "Cidade:")]
+        public int IdCidadeEstabelecimento { get; set; }
+        [Display(Name = "Estado:")]
+        public int IdEstadoEstabelecimento { get; set; }
     }
 }

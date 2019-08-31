@@ -184,6 +184,10 @@
     <Compile Include="Models\Areas\Autenticacao\CadastroEstacionamento.cs" />
     <Compile Include="Models\Areas\Autenticacao\LoginRequisicao.cs" />
     <Compile Include="Models\Areas\Autenticacao\Usuario.cs" />
+    <Compile Include="Models\Areas\Cliente\EstacionamentosDoCliente.cs" />
+    <Compile Include="Models\Areas\Cliente\TransacoesDoCliente.cs" />
+    <Compile Include="Models\Areas\Estacionamento\Recebimentos.cs" />
+    <Compile Include="Models\Areas\Estacionamento\UsuariosDoEstacionamento.cs" />
     <Compile Include="Models\Areas\Localizacao\Cidade.cs" />
     <Compile Include="Models\Areas\Localizacao\Endereco.cs" />
     <Compile Include="Models\Areas\Localizacao\Estado.cs" />
@@ -251,6 +255,7 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Estacionamento\MeusDados.cshtml" />
     <Content Include="Views\Cliente\MeusDados.cshtml" />
+    <Content Include="Views\Menu\FaleConosco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
