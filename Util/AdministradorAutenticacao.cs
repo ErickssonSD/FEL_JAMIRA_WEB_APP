@@ -26,7 +26,7 @@ namespace FEL_JAMIRA_WEB_APP.Util
                   string nome = Helpers.Encrypt(Helpers.Encrypt(Helpers.Encrypt(new JavaScriptSerializer().Serialize(usuario))));
                   var authTicket = new FormsAuthenticationTicket(1, nome, DateTime.Now, oTimeOut, false, ".");
                   var encTicket = FormsAuthentication.Encrypt(authTicket);
-                  FormsAuthentication.SetAuthCookie(usuario.Id.ToString(), true);
+                  FormsAuthentication.SetAuthCookie(usuario.Id.ToString()+"-"+usuario.IdPessoa.ToString(), true);
                   var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
                   {
                       Value = encTicket,

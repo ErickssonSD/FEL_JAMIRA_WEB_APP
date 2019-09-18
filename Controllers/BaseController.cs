@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.Security;
 
 namespace FEL_JAMIRA_WEB_APP.Controllers
 {
@@ -71,9 +72,28 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 throw ex;
             }
         }
+        public void GetUsuario()
+        {
+            if (Request.Cookies["authCookie"] != null)
+            {
+                var decTicket = FormsAuthentication.Decrypt(Request.Cookies["authCookie"].Value);
+                var idUsuario = decTicket.Name.Split('-');
+                SetarUsuarioLogado(idUsuario[0]);
+            }
+            else
+                RedirectToAction("Login", "Autenticacao");
+        }
+
         public int GetIdUsuario()
         {
-            return _usuario.Id;
+            if (Request.Cookies["authCookie"] != null)
+            {
+                var decTicket = FormsAuthentication.Decrypt(Request.Cookies["authCookie"].Value);
+                var idPessoa = decTicket.Name.Split('-');
+                return int.Parse(idPessoa[1]);
+            }
+            else
+                return 0;
         }
         public void SetarUsuarioLogado(string id)
         {

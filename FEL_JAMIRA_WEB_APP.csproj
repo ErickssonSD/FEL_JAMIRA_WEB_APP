@@ -184,8 +184,10 @@
     <Compile Include="Models\Areas\Autenticacao\CadastroEstacionamento.cs" />
     <Compile Include="Models\Areas\Autenticacao\LoginRequisicao.cs" />
     <Compile Include="Models\Areas\Autenticacao\Usuario.cs" />
+    <Compile Include="Models\Areas\Cliente\CarroCliente.cs" />
     <Compile Include="Models\Areas\Cliente\EstacionamentosDoCliente.cs" />
     <Compile Include="Models\Areas\Cliente\TransacoesDoCliente.cs" />
+    <Compile Include="Models\Areas\Estacionamento\EnderecoEstacionamento.cs" />
     <Compile Include="Models\Areas\Estacionamento\Recebimentos.cs" />
     <Compile Include="Models\Areas\Estacionamento\UsuariosDoEstacionamento.cs" />
     <Compile Include="Models\Areas\Localizacao\Cidade.cs" />
@@ -193,6 +195,7 @@
     <Compile Include="Models\Areas\Localizacao\Estado.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Cliente.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Estacionamento.cs" />
+    <Compile Include="Models\Areas\Modelagem do Sistema\Marca.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Pessoa.cs" />
     <Compile Include="Models\Areas\MultiModelação\DadosCliente.cs" />
     <Compile Include="Models\Areas\MultiModelação\DadosEstacionamento.cs" />
@@ -218,7 +221,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\Logo.PNG" />
     <Content Include="ReleaseNotes.css" />
+    <Content Include="Scripts\Areas\Carro.js" />
     <Content Include="Scripts\Areas\Login.js" />
+    <Content Include="Scripts\Areas\MenuCliente.js" />
     <Content Include="Scripts\Areas\MenuFornecedor.js" />
     <Content Include="Content\Ballon.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -229,6 +234,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -256,6 +263,8 @@
     <Content Include="Views\Estacionamento\MeusDados.cshtml" />
     <Content Include="Views\Cliente\MeusDados.cshtml" />
     <Content Include="Views\Menu\FaleConosco.cshtml" />
+    <Content Include="Views\Estacionamento\CadastrarEstacionamento.cshtml" />
+    <Content Include="Views\Cliente\CadastrarCarro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

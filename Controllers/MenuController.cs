@@ -2,6 +2,7 @@
 using FEL_JAMIRA_WEB_APP.Models.Areas.Cliente;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
+using FEL_JAMIRA_WEB_APP.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         //[Authorize]
         public ActionResult Cliente()
         {
-            SetaUsuarioController();
+            GetUsuario();
             //Transações do Cliente e Estacionamentos do Cliente
             Cliente cliente = new Cliente();
             var task = Task.Run(async () => {
@@ -85,7 +86,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: Estacionamento
         public ActionResult Estacionamento()
         {
-            SetaUsuarioController();
+            GetUsuario();
             //Recebimentos e Usuarios do Estacionamento
             Estacionamento estacionamento = new Estacionamento();
             var task = Task.Run(async () => {
@@ -120,15 +121,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             return View();
         }
 
-        public void SetaUsuarioController()
-        {
-            if (Request.Cookies["authCookie"] != null)
-            {
-                var decTicket = FormsAuthentication.Decrypt(Request.Cookies["authCookie"].Value);
-                SetarUsuarioLogado(decTicket.Name);
-            }
-            else
-                RedirectToAction("Login", "Autenticacao");
-        }
+
+
     }
 }

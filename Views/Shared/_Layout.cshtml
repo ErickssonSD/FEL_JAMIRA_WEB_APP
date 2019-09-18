@@ -37,11 +37,12 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <span class="badge">1</span>
                                 <span class="glyphicon glyphicon-bell"></span>
-                                <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li style="display: inline-flex;">
-                                    @Html.ActionLink(mensagem, "DesconectarUsuario", "Autenticacao") <span class="glyphicon glyphicon-check" style="margin-top: 2.8%;padding-right: 2%;"></span>
+                                    <a data-toggle="modal" data-target="#modalCadastro">
+                                        <span class="glyphicon glyphicon-warning-sign"></span> @mensagem
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -68,6 +69,7 @@
     </footer>
 
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/menuUsuarios")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

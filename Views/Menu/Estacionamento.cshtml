@@ -113,6 +113,26 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal left fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="Cadastro">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Cadastrar Estacionamento</h4>
+            </div>
+
+            <div class="modal-body">
+                @{
+                    Html.RenderAction("CadastrarEstacionamento","Estacionamento");
+                }
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
 
 @Styles.Render("~/Content/menuUsuarios")
 @Scripts.Render("~/bundles/menuFornecedor")

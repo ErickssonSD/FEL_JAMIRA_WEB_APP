@@ -30,5 +30,13 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             retorno = await baseController.PostObject(UsuarioLogado,"Estacionamentos/GetRecebimentos");
             return Json(retorno, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult CadastrarEstacionamento()
+        {
+            ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
+            ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
+            return PartialView("~/Views/Estacionamento/CadastrarEstacionamento.cshtml");
+        }
     }
 }

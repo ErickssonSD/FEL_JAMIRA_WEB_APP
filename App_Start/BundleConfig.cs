@@ -25,6 +25,13 @@ namespace FEL_JAMIRA_WEB_APP
             bundles.Add(new ScriptBundle("~/bundles/menuFornecedor").Include(
             "~/Scripts/Areas/MenuFornecedor.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/menuCliente").Include(
+            "~/Scripts/Areas/MenuCliente.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/menuCarro").Include(
+            "~/Scripts/jquery-{version}.js",
+            "~/Scripts/Areas/Carro.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

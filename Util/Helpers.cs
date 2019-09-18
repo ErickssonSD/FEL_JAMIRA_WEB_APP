@@ -1,5 +1,6 @@
 ﻿using FEL_JAMIRA_WEB_APP.Controllers;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Localizacao;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,29 @@ namespace FEL_JAMIRA_WEB_APP.Util
                         foreach (var item in retornoEstados.Data)
                         {
                             SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.NomeEstado, Value = item.Id.ToString() };
+                            selectListItem.Add(selectTempListItem);
+                        }
+                        SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);
+                        return selectList;
+                    }
+                case "Marcas":
+                    using (BaseController<List<Marca>> b2 = new BaseController<List<Marca>>())
+                    {
+                        ResponseViewModel<List<Marca>> retornoMarca = new ResponseViewModel<List<Marca>>();
+
+                        var task = Task.Run(async () => {
+                            ResponseViewModel<List<Marca>> returnTask = await b2.GetObjectAsync("Marcas/GetAll");
+                            retornoMarca = returnTask;
+                        });
+                        task.Wait();
+
+                        List<SelectListItem> selectListItem = new List<SelectListItem>();
+                        SelectListItem selectedListItem = new SelectListItem { Selected = true, Text = "Selecione", Value = "99999" };
+                        selectListItem.Add(selectedListItem);
+
+                        foreach (var item in retornoMarca.Data)
+                        {
+                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.NomeMarca, Value = item.Id.ToString() };
                             selectListItem.Add(selectTempListItem);
                         }
                         SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);

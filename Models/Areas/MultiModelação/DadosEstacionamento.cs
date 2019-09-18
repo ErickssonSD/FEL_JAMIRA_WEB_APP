@@ -57,22 +57,5 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação
         [Display(Name = "Estado:")]
         public int IdEstado { get; set; }
 
-        [Required(ErrorMessage = "O campo rua é obrigatório")]
-        [Display(Name = "Rua:")]
-        public string RuaEstabelecimento { get; set; }
-        [Required(ErrorMessage = "O campo número é obrigatório")]
-        [Display(Name = "Número:")]
-        public int NumeroEstabelecimento { get; set; }
-        [Required(ErrorMessage = "O campo bairro é obrigatório")]
-        [Display(Name = "Bairro:")]
-        public string BairroEstabelecimento { get; set; }
-        [Display(Name = "CEP:")]
-        public string CEPEstabelecimento { get; set; }
-        [Display(Name = "Detalhes:")]
-        public string ComplementoEstabelecimento { get; set; }
-        [Display(Name = "Cidade:")]
-        public int IdCidadeEstabelecimento { get; set; }
-        [Display(Name = "Estado:")]
-        public int IdEstadoEstabelecimento { get; set; }
     }
 }
