@@ -209,6 +209,8 @@
     <Compile Include="Util\Util.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Areas\Carro.css" />
+    <Content Include="Content\Areas\Estacionamento.css" />
     <Content Include="Content\Areas\Login.css" />
     <Content Include="Content\Areas\MenuUsuarios.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -222,6 +224,7 @@
     <Content Include="Imagens\Logo.PNG" />
     <Content Include="ReleaseNotes.css" />
     <Content Include="Scripts\Areas\Carro.js" />
+    <Content Include="Scripts\Areas\Estacionamento.js" />
     <Content Include="Scripts\Areas\Login.js" />
     <Content Include="Scripts\Areas\MenuCliente.js" />
     <Content Include="Scripts\Areas\MenuFornecedor.js" />

@@ -84,6 +84,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         }
 
         // GET: Estacionamento
+        //[Authorize]
         public ActionResult Estacionamento()
         {
             GetUsuario();
@@ -94,7 +95,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 using (BaseController<Estacionamento> bUsuario = new BaseController<Estacionamento>())
                 {
 
-                    var valorRetorno = await bUsuario.GetObjectAsync("Estacionamentos/Detalhes/" + _usuario.IdPessoa);
+                    var valorRetorno = await bUsuario.GetObjectAsync("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + _usuario.IdPessoa);
                     estacionamento = valorRetorno.Data;
                 }
 
@@ -116,7 +117,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Recebimentos = recebimentos?.Take(5).OrderByDescending(x => x.Date).ToList();
             ViewBag.Usuarios = usuariosDoEstacionamento?.Take(5).OrderByDescending(x => x.PeriodoDe).ToList();
             ViewBag.InsereAlerta = !estacionamento.TemEstacionamento;
-            ViewBag.Nickname = estacionamento.Nome;
+            ViewBag.Nickname = estacionamento.Proprietario.Nome;
             ViewBag.Cadastrar = "Cadastrar Estacionamento";
             return View();
         }

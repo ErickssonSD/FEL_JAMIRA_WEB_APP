@@ -28,5 +28,6 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento
         [Required(ErrorMessage = "O campo estado é obrigatório")]
         [Display(Name = "Estado:")]
         public int IdEstado { get; set; }
+        public int IdPessoa { get; set; }
     }
 }

@@ -28,6 +28,10 @@ namespace FEL_JAMIRA_WEB_APP
             bundles.Add(new ScriptBundle("~/bundles/menuCliente").Include(
             "~/Scripts/Areas/MenuCliente.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/menuEstacionamento").Include(
+            "~/Scripts/jquery-{version}.js",
+            "~/Scripts/Areas/Estacionamento.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/menuCarro").Include(
             "~/Scripts/jquery-{version}.js",
             "~/Scripts/Areas/Carro.js"));
@@ -50,6 +54,12 @@ namespace FEL_JAMIRA_WEB_APP
 
             bundles.Add(new StyleBundle("~/Content/menuUsuarios").Include(
                     "~/Content/Areas/MenuUsuarios.css"));
+
+            bundles.Add(new StyleBundle("~/Content/menuCarro").Include(
+                    "~/Content/Areas/Carro.css"));
+
+            bundles.Add(new StyleBundle("~/Content/menuEstacionamento").Include(
+                    "~/Content/Areas/Estacionamento.css"));
         }
     }
 }

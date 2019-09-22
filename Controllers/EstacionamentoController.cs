@@ -38,5 +38,51 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
             return PartialView("~/Views/Estacionamento/CadastrarEstacionamento.cshtml");
         }
+
+        [HttpPost]
+        public JsonResult RegistrarEstacionamento(EnderecoEstacionamento enderecoEstacionamento)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ResponseViewModel<EnderecoEstacionamento> responseViewModel = new ResponseViewModel<EnderecoEstacionamento>();
+                    enderecoEstacionamento.IdPessoa = GetIdUsuario();
+                    var task = Task.Run(async () => {
+                        using (BaseController<EnderecoEstacionamento> baseController = new BaseController<EnderecoEstacionamento>())
+                        {
+                            var retorno = await baseController.PostObject(enderecoEstacionamento, "Enderecos/Registrar");
+                            responseViewModel = retorno;
+                        }
+                    });
+                    task.Wait();
+                    return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ResponseViewModel<EnderecoEstacionamento> responseViewModel = new ResponseViewModel<EnderecoEstacionamento>
+                    {
+                        Data = enderecoEstacionamento,
+                        Mensagem = "Dados inválidos.",
+                        Serializado = true,
+                        Sucesso = false
+                    };
+
+                    return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                ResponseViewModel<EnderecoEstacionamento> responseViewModel = new ResponseViewModel<EnderecoEstacionamento>
+                {
+                    Data = enderecoEstacionamento,
+                    Mensagem = "Ocorreu um erro ao processar sua solicitação.",
+                    Serializado = true,
+                    Sucesso = false
+                };
+
+                return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

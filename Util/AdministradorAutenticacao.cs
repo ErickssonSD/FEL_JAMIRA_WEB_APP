@@ -78,8 +78,8 @@ namespace FEL_JAMIRA_WEB_APP.Util
                 //LogOut User
                 if (HttpContext.Current != null)
                 {
-                    if (HttpContext.Current.Request.Cookies["Counts"] != null)
-                        HttpContext.Current.Response.Cookies["Counts"].Expires = DateTime.Now.AddDays(-1);
+                    if (HttpContext.Current.Request.Cookies["authCookie"] != null)
+                        HttpContext.Current.Response.Cookies["authCookie"].Expires = DateTime.Now.AddDays(-1);
 
                     if (HttpContext.Current.Session != null)
                     {

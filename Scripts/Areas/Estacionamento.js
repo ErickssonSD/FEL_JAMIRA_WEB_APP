@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
-
     $("#cadastrar").click(function (event) {
         event.preventDefault();
         var $this = $("#cadastrar");
         $this.button('loading');
-        var form = document.getElementById("formCarro");
+        var form = document.getElementById("formEstacionamento");
         var data = $(form).serialize();
         $.post(form.action, data, function (response) {
             debugger;
@@ -16,7 +15,8 @@
                     $('#fracasso').css('display', 'block');
                 }
             }
-            $('#cadcarro').remove();
+            $('#cadest').remove();
         });
+       
     });
 });

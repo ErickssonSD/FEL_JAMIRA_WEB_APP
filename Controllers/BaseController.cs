@@ -113,11 +113,11 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             var uri = new Uri(string.Format(url));
             await client.DeleteAsync(uri);
         }
-        public void DesconectarUsuario()
+        public ActionResult DesconectarUsuario()
         {
             Util.Util.DesconectarUsuario();
             Dispose();
-            RedirectToAction("Login","Autenticacao");
+            return RedirectToAction("Login","Autenticacao");
         }
     }
 }
