@@ -8,11 +8,20 @@ namespace FEL_JAMIRA_WEB_APP
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/menu").Include(
+                        "~/Scripts/Menu/bootstrap.bundle.min.js",
+                        "~/Scripts/Menu/dataTables.bootstrap4.js",
+                        "~/Scripts/Menu/jquery.easing.min.js",
+                        "~/Scripts/Menu/jquery.min.js",
+                        "~/Scripts/Menu/sb-admin-2.min.js",
+                        "~/Scripts/Menu/jquery.dataTables.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/register").Include(
             "~/Scripts/Mask.js",
@@ -43,6 +52,11 @@ namespace FEL_JAMIRA_WEB_APP
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/menu").Include(
+                      "~/Content/Menus/all.css",
+                      "~/Content/Menus/dataTables.bootstrap4.css",
+                      "~/Content/Menus/sb-admin-2.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

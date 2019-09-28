@@ -6,7 +6,6 @@
         var form = document.getElementById("formEstacionamento");
         var data = $(form).serialize();
         $.post(form.action, data, function (response) {
-            debugger;
             if (response && response.Data) {
                 if (response.Serializado === true) {
                     $('#sucesso').css('display', 'block');
@@ -15,8 +14,6 @@
                     $('#fracasso').css('display', 'block');
                 }
             }
-            $('#cadest').remove();
         });
-       
     });
 });

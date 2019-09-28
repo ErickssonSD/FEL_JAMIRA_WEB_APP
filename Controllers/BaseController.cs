@@ -72,6 +72,28 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 throw ex;
             }
         }
+        public string GetEmail()
+        {
+            if (Request.Cookies["authCookie"] != null)
+            {
+                var decTicket = FormsAuthentication.Decrypt(Request.Cookies["authCookie"].Value);
+                var email = decTicket.Name.Split('-');
+                return email[3];
+            }
+            else
+                return "";
+        }
+        public int GetLevel()
+        {
+            if (Request.Cookies["authCookie"] != null)
+            {
+                var decTicket = FormsAuthentication.Decrypt(Request.Cookies["authCookie"].Value);
+                var idLevel = decTicket.Name.Split('-');
+                return int.Parse(idLevel[2]);
+            }
+            else
+                return -1;
+        }
         public void GetUsuario()
         {
             if (Request.Cookies["authCookie"] != null)
@@ -84,7 +106,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 RedirectToAction("Login", "Autenticacao");
         }
 
-        public int GetIdUsuario()
+        public int GetIdPessoa()
         {
             if (Request.Cookies["authCookie"] != null)
             {

@@ -50,5 +50,6 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
         public int IdCidade { get; set; }
         [Display(Name = "Estado Residente:")]
         public int IdEstado { get; set; }
+
     }
 }

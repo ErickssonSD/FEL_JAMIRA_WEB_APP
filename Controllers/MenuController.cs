@@ -23,25 +23,10 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
             return RedirectToAction("Estacionamento");
         }
-        public ActionResult MeusDados()
-        {
-            return RedirectToAction("MeusDados", "Estacionamento");
-        }
 
         public ActionResult FaleConosco()
         {
             return View();
-        }
-
-        // GET: BuscarValor
-        public async Task<JsonResult> BuscarValor(string username = "")
-        {
-            var resultado = new
-            {
-                Nome = "Linha de Código: " + username.ToString(),
-                URL = "www.linhadecodigo.com.br"
-            };
-            return Json(resultado, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Cliente
@@ -78,7 +63,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Estacionamentos = estacionamentosDoClientes.Take(5).OrderByDescending(x => x.PeriodoDe);
             ViewBag.InsereAlerta = !cliente.TemCarro;
             ViewBag.Nickname = cliente.Nome;
-            ViewBag.Cadastrar = "Cadastrar Carro";
+            ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
+            ViewBag.Level = 2;
 
             return View();
         }
@@ -118,11 +104,42 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Usuarios = usuariosDoEstacionamento?.Take(5).OrderByDescending(x => x.PeriodoDe).ToList();
             ViewBag.InsereAlerta = !estacionamento.TemEstacionamento;
             ViewBag.Nickname = estacionamento.Proprietario.Nome;
-            ViewBag.Cadastrar = "Cadastrar Estacionamento";
+            ViewBag.Cadastrar = "Você precisa cadastrar um endereco para seu estacionamento. clique aqui.";
+            ViewBag.Level = 1;
             return View();
         }
+        public ActionResult MeusDados()
+        {
+            int meuLevel = GetLevel();
+            if (meuLevel.Equals(1))
+                return RedirectToAction("MeusDados", "Estacionamento");
+            else if (meuLevel.Equals(2))
+                return RedirectToAction("MeusDados", "Cliente");
+            else
+                return RedirectToAction("Login", "Autenticacao");
+        }
 
+        public ActionResult DirecionalMenu()
+        {
+            int meuLevel = GetLevel();
+            if (meuLevel.Equals(1))
+                return RedirectToAction("Estacionamento");
+            else if (meuLevel.Equals(2))
+                return RedirectToAction("Cliente");
+            else
+                return RedirectToAction("Login", "Autenticacao");
+        }
 
+        public ActionResult DirecionalCadastro()
+        {
+            int meuLevel = GetLevel();
+            if (meuLevel.Equals(1))
+                return RedirectToAction("Endereco", "Estacionamento");
+            else if(meuLevel.Equals(2))
+                return RedirectToAction("Carro", "Cliente");
+            else
+                return RedirectToAction("Login", "Autenticacao");
+        }
 
     }
 }

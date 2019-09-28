@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FEL_JAMIRA_WEB_APP.Models.Areas.Localizacao;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema
 {
-    public class Estacionamento : Pessoa
+    public class Estacionamento
     {
         public int IdEstacionamento { get; set; }
         public string NomeEstacionamento { get; set; }
@@ -14,6 +15,8 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema
         public string InscricaoEstadual { get; set; }
         public bool TemEstacionamento { get; set; }
         public int? IdEnderecoEstabelecimento { get; set; }
+        public int IdPessoa { get; set; }
         public Pessoa Proprietario { get; set; }
+        public Endereco EnderecoEstacionamento { get; set; }
     }
 }

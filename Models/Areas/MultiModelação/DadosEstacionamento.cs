@@ -57,5 +57,22 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação
         [Display(Name = "Estado:")]
         public int IdEstado { get; set; }
 
+        //Endereço do Estabelecimento
+
+        [Display(Name = "Rua:")]
+        public string RuaEstacionamento { get; set; }
+        [Display(Name = "Número:")]
+        public int? NumeroEstacionamento { get; set; }
+        [Display(Name = "Bairro:")]
+        public string BairroEstacionamento { get; set; }
+        [Display(Name = "CEP:")]
+        public string CEPEstacionamento { get; set; }
+        [Display(Name = "Detalhes:")]
+        public string ComplementoEstacionamento { get; set; }
+        [Display(Name = "Cidade:")]
+        public int? IdCidadeEstacionamento { get; set; }
+        [Display(Name = "Estado:")]
+        public int? IdEstadoEstacionamento { get; set; }
+
     }
 }

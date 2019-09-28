@@ -1,5 +1,6 @@
 ﻿using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
+using FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
 using FEL_JAMIRA_WEB_APP.Util;
 using System;
@@ -17,26 +18,99 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: MeusDados
         public ActionResult MeusDados()
         {
-            ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
-            ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
-            return View();
+            Estacionamento retorno = new Estacionamento();
+            var task = Task.Run(async () => {
+
+                using (BaseController<Estacionamento> bUsuario = new BaseController<Estacionamento>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsync("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + GetIdPessoa());
+                    retorno = valorRetorno.Data;
+                }
+            });
+            task.Wait();
+
+            DadosEstacionamento dadosEstacionamento = new DadosEstacionamento {
+                Bairro = retorno.EnderecoEstacionamento.Bairro,
+                CEP = retorno.EnderecoEstacionamento.CEP,
+                CNPJ = retorno.CNPJ,
+                Complemento = retorno.EnderecoEstacionamento.Complemento,
+                CPF = retorno.Proprietario.CPF,
+                Email = GetEmail(),
+                IdCidade = retorno.EnderecoEstacionamento.IdCidade,
+                IdEstado = retorno.EnderecoEstacionamento.IdEstado,
+                InscricaoEstadual = retorno.InscricaoEstadual,
+                Nascimento = retorno.Proprietario.Nascimento,
+                Nickname = retorno.Proprietario.Nome,
+                NomeEstacionamento = retorno.NomeEstacionamento,
+                NomeProprietario = retorno.Proprietario.Nome,
+                Numero = retorno.EnderecoEstacionamento.Numero,
+                RG = retorno.Proprietario.RG,
+                Rua = retorno.EnderecoEstacionamento.Rua,
+                BairroEstacionamento = retorno.Proprietario.EnderecoPessoa.Bairro,
+                CEPEstacionamento = retorno.Proprietario.EnderecoPessoa.CEP,
+                ComplementoEstacionamento = retorno.Proprietario.EnderecoPessoa.Complemento,
+                IdCidadeEstacionamento = retorno.Proprietario.EnderecoPessoa.IdCidade,
+                IdEstadoEstacionamento = retorno.Proprietario.EnderecoPessoa.IdEstado,
+                NumeroEstacionamento = retorno.Proprietario.EnderecoPessoa.Numero,
+                RuaEstacionamento = retorno.Proprietario.EnderecoPessoa.Rua
+            };
+
+            ViewBag.InsereAlerta = !retorno.TemEstacionamento;
+            ViewBag.Nickname     = retorno.Proprietario.Nome;
+            ViewBag.Cidade       = Helpers.GetSelectList("Cidades") as SelectList;
+            ViewBag.Estado       = Helpers.GetSelectList("Estados") as SelectList;
+            ViewBag.Level        = GetLevel();
+            return View(dadosEstacionamento);
         }
 
         public async Task<JsonResult> GetRecebimentos()
         {
             BaseController<Recebimentos> baseController = new BaseController<Recebimentos>();
             ResponseViewModel<Recebimentos> retorno = new ResponseViewModel<Recebimentos>();
-            int UsuarioLogado = GetIdUsuario();
+            int UsuarioLogado = GetIdPessoa();
             retorno = await baseController.PostObject(UsuarioLogado,"Estacionamentos/GetRecebimentos");
             return Json(retorno, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult CadastrarEstacionamento()
+        public ActionResult Endereco()
         {
+            EnderecoEstacionamento enderecoEstacionamento = new EnderecoEstacionamento();
+            ViewBag.Status = "";
             ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
             ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
-            return PartialView("~/Views/Estacionamento/CadastrarEstacionamento.cshtml");
+            Estacionamento retorno = new Estacionamento();
+            var task = Task.Run(async () => {
+
+                using (BaseController<Estacionamento> bUsuario = new BaseController<Estacionamento>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsync("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + GetIdPessoa());
+                    retorno = valorRetorno.Data;
+                }
+            });
+            task.Wait();
+
+            if (retorno.IdEnderecoEstabelecimento > 0)
+            {
+                enderecoEstacionamento = new EnderecoEstacionamento
+                {
+                    Bairro = retorno.EnderecoEstacionamento.Bairro,
+                    CEP = retorno.EnderecoEstacionamento.CEP,
+                    Complemento = retorno.EnderecoEstacionamento.Complemento,
+                    IdCidade = retorno.EnderecoEstacionamento.IdCidade,
+                    IdEstado = retorno.EnderecoEstacionamento.IdEstado,
+                    Numero = retorno.EnderecoEstacionamento.Numero,
+                    Rua = retorno.EnderecoEstacionamento.Rua
+                };
+                ViewBag.Status = "Atualizar";
+            }
+            else
+            {
+                ViewBag.Status = "Cadastrar";
+            }
+            ViewBag.InsereAlerta = !retorno.TemEstacionamento;
+            ViewBag.Level = 1;
+            return View(enderecoEstacionamento);
         }
 
         [HttpPost]
@@ -47,7 +121,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 if (ModelState.IsValid)
                 {
                     ResponseViewModel<EnderecoEstacionamento> responseViewModel = new ResponseViewModel<EnderecoEstacionamento>();
-                    enderecoEstacionamento.IdPessoa = GetIdUsuario();
+                    enderecoEstacionamento.IdPessoa = GetIdPessoa();
                     var task = Task.Run(async () => {
                         using (BaseController<EnderecoEstacionamento> baseController = new BaseController<EnderecoEstacionamento>())
                         {

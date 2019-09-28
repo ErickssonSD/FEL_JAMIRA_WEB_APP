@@ -1,42 +1,4 @@
-﻿table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2
-}
-
-th {
-    background-color: #6d93a8;
-    color: white;
-}
-
-.caixa {
-    background-color: #eae8e8;
-    padding-left:2%;
-    padding-right:2%;
-    padding-bottom:5%;
-    padding-top:10%;
-    margin: 20px 0;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
-    display: flow-root;
-}
-
-.dentroCaixa {
-    width: auto;
-    background-color: #fff;
-    padding: 8px 12px;
-    border-left: 4px solid #6f726f;
-    word-wrap: break-word;
-    overflow: auto;
-}
-
+﻿
 /*direita*/
 .modal.right.fade .modal-dialog {
     right: -500px;

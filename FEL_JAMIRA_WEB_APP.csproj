@@ -193,6 +193,7 @@
     <Compile Include="Models\Areas\Localizacao\Cidade.cs" />
     <Compile Include="Models\Areas\Localizacao\Endereco.cs" />
     <Compile Include="Models\Areas\Localizacao\Estado.cs" />
+    <Compile Include="Models\Areas\Modelagem do Sistema\Carro.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Cliente.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Estacionamento.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Marca.cs" />
@@ -217,10 +218,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Menus\all.css" />
+    <Content Include="Content\Menus\dataTables.bootstrap4.css" />
+    <Content Include="Content\Menus\sb-admin-2.css" />
+    <Content Include="Content\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\webfonts\fa-solid-900.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\desconhecido.PNG" />
     <Content Include="Imagens\Logo.PNG" />
     <Content Include="ReleaseNotes.css" />
     <Content Include="Scripts\Areas\Carro.js" />
@@ -229,8 +237,21 @@
     <Content Include="Scripts\Areas\MenuCliente.js" />
     <Content Include="Scripts\Areas\MenuFornecedor.js" />
     <Content Include="Content\Ballon.css" />
+    <Content Include="Scripts\Areas\Util.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -244,6 +265,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Mask.js" />
+    <Content Include="Scripts\Menu\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\Menu\datatables-demo.js" />
+    <Content Include="Scripts\Menu\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\Menu\jquery.dataTables.min.js" />
+    <Content Include="Scripts\Menu\jquery.easing.min.js" />
+    <Content Include="Scripts\Menu\jquery.min.js" />
+    <Content Include="Scripts\Menu\sb-admin-2.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Util.js" />
     <Content Include="Web.config" />
@@ -255,8 +283,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Autenticacao\Login.cshtml" />
     <Content Include="Views\Autenticacao\RegistrarCliente.cshtml" />
     <Content Include="Views\Autenticacao\RegistrarEstacionamento.cshtml" />
@@ -266,8 +292,10 @@
     <Content Include="Views\Estacionamento\MeusDados.cshtml" />
     <Content Include="Views\Cliente\MeusDados.cshtml" />
     <Content Include="Views\Menu\FaleConosco.cshtml" />
-    <Content Include="Views\Estacionamento\CadastrarEstacionamento.cshtml" />
-    <Content Include="Views\Cliente\CadastrarCarro.cshtml" />
+    <Content Include="Views\Shared1\Error.cshtml" />
+    <Content Include="Views\Shared1\_Layout.cshtml" />
+    <Content Include="Views\Estacionamento\Endereco.cshtml" />
+    <Content Include="Views\Cliente\Carro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

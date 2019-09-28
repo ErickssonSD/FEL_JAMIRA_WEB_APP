@@ -23,10 +23,41 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         }
 
         [HttpGet]
-        public ActionResult CadastrarCarro()
+        public ActionResult Carro()
         {
+            CarroCliente carroCliente = new CarroCliente();
+            ViewBag.Status = "";
+            Carro retorno = new Carro();
+            var task = Task.Run(async () => {
+
+                using (BaseController<Carro> bCarro = new BaseController<Carro>())
+                {
+                    var valorRetorno = await bCarro.GetObjectAsync("Carros/BuscarCarroCliente/" + GetIdPessoa());
+                    retorno = valorRetorno.Data;
+                }
+            });
+            task.Wait();
+
+            if (retorno != null && retorno.IdMarca > 0)
+            {
+                carroCliente = new CarroCliente
+                {
+                    IdMarca = retorno.IdMarca,
+                    Modelo = retorno.Modelo,
+                    Placa = retorno.Placa,
+                    Porte = retorno.Porte
+                };
+                ViewBag.Status = "Atualizar";
+            }
+            else
+            {
+                ViewBag.Status = "Cadastrar";
+            }
+            ViewBag.InsereAlerta = !retorno.Cliente.TemCarro;
+            ViewBag.Level = 2;
+            
             ViewBag.Marcas = Helpers.GetSelectList("Marcas") as SelectList;
-            return PartialView("~/Views/Cliente/CadastrarCarro.cshtml");
+            return View(carroCliente);
         }
 
         [HttpPost]
@@ -37,7 +68,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 if (ModelState.IsValid)
                 {
                     ResponseViewModel<CarroCliente> responseViewModel = new ResponseViewModel<CarroCliente>();
-                    carroCliente.IdCliente = GetIdUsuario();
+                    carroCliente.IdCliente = GetIdPessoa();
                     var task = Task.Run(async () => {
                         using (BaseController<CarroCliente> baseController = new BaseController<CarroCliente>())
                         {
