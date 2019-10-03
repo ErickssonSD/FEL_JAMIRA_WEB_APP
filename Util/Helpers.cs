@@ -41,7 +41,7 @@ namespace FEL_JAMIRA_WEB_APP.Util
         /// </summary>
         /// <param name="TituloRetorno"></param>
         /// <returns></returns>
-        public static SelectList GetSelectList(string TituloRetorno)
+        public static SelectList GetSelectList(string TituloRetorno, AcessoToken token = null)
         {
             switch (TituloRetorno)
             {
@@ -97,7 +97,7 @@ namespace FEL_JAMIRA_WEB_APP.Util
                         ResponseViewModel<List<Marca>> retornoMarca = new ResponseViewModel<List<Marca>>();
 
                         var task = Task.Run(async () => {
-                            ResponseViewModel<List<Marca>> returnTask = await b2.GetObjectAsync("Marcas/GetAll");
+                            ResponseViewModel<List<Marca>> returnTask = await b2.GetObjectAsyncWithToken("Marcas/GetAll", token);
                             retornoMarca = returnTask;
                         });
                         task.Wait();

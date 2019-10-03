@@ -28,7 +28,7 @@ namespace FEL_JAMIRA_WEB_APP.Util
                   var encTicket = FormsAuthentication.Encrypt(authTicket);
                   FormsAuthentication.SetAuthCookie
                     (usuario.Id.ToString()+"-"+usuario.IdPessoa.ToString() + "-" + usuario.Level.ToString()
-                    +"-"+usuario.Login.ToString()
+                    +"-"+usuario.Login.ToString()+"-"+Helpers.Encrypt(usuario.Senha)
                     , true);
                   var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
                   {

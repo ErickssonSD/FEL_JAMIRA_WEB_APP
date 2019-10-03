@@ -3,27 +3,29 @@
 @{
     ViewBag.Title = "Carro";
     Layout = "~/Views/Shared1/_Layout.cshtml";
+    string status = ViewBag.Status;
+
     SelectList Marca = ViewBag.Marcas as SelectList;
 }
 @Scripts.Render("~/bundles/menuCarro")
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <div class="container-fluid">
-    <div id="sucesso" class="alert alert-success" role="alert">
+    <div id="sucesso" class="alert alert-success" role="alert" style="display:none;">
         <h4 class="alert-heading">Sucesso</h4>
-        <p>Seu carro foi cadastrado com sucesso!"</p>
+        <p>Seu carro foi cadastrado com sucesso!</p>
         <hr>
         <p class="mb-0">Agora ele será identificado quando você requisitar um estacionamento.</p>
     </div>
 
-    <div id="fracasso" class="alert alert-danger" role="alert">
+    <div id="fracasso" class="alert alert-danger" role="alert" style="display:none;">
         <h4 class="alert-heading">Erro</h4>
         <p>Não foi possível atender sua solicitação.</p>
         <hr>
         <p class="mb-0">Você pode estar realizando o cadastro novamente mais tarde.</p>
     </div>
 
-    <h1 class="h3 mb-2 text-gray-800">Formulário de Endereço</h1>
-    <p class="mb-4">Por favor, preencha os registros abaixo.</p>
+    <h1 class="h3 mb-2 text-gray-800">Meu Carro</h1>
+    <p class="mb-4">Aqui você encontra tudo sobre seu carro.</p>
     <hr />
 
     @using (Html.BeginForm("RegistrarCarro", "Cliente", FormMethod.Post, new { id = "formCarro" }))
@@ -31,13 +33,11 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>CarroCliente</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Placa, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Placa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Placa, new { htmlAttributes = new { @class = "form-control", placeholder = "BEE4R22" } })
                     @Html.ValidationMessageFor(model => model.Placa, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -45,7 +45,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Porte, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Porte, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Porte, new { htmlAttributes = new { @class = "form-control",  placeholder = "Medio" } })
                     @Html.ValidationMessageFor(model => model.Porte, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", placeholder = "GOL"} })
                     @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,9 +66,15 @@
                 </div>
             </div>
 
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <a href="#" id="cadastrar" class="btn btn-primary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-flag"></i>
+                        </span>
+                        <span class="text">@status</span>
+                    </a>
                 </div>
             </div>
         </div>

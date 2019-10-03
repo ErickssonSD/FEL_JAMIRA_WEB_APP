@@ -15,14 +15,6 @@ namespace FEL_JAMIRA_WEB_APP
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/menu").Include(
-                        "~/Scripts/Menu/bootstrap.bundle.min.js",
-                        "~/Scripts/Menu/dataTables.bootstrap4.js",
-                        "~/Scripts/Menu/jquery.easing.min.js",
-                        "~/Scripts/Menu/jquery.min.js",
-                        "~/Scripts/Menu/sb-admin-2.min.js",
-                        "~/Scripts/Menu/jquery.dataTables.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/register").Include(
             "~/Scripts/Mask.js",
             "~/Scripts/Util.js",

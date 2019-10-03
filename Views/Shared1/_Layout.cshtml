@@ -1,6 +1,5 @@
 ﻿
 @{
-
     bool inserteAlerta = ViewBag.InsereAlerta;
     string nomeUsuario = ViewBag.Nickname;
     string mensagem = ViewBag.Cadastrar;
@@ -43,7 +42,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Menu/DirecionalMenu">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-map-marked-alt"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Jamira <sup>web</sup></div>
             </a>
@@ -83,6 +82,8 @@
                         {
                             <h6 class="collapse-header">Carro:</h6>
                             <a class="collapse-item" href="/Cliente/Carro">Meu Carro</a>
+                            <h6 class="collapse-header">Créditos:</h6>
+                            <a class="collapse-item" href="/Cliente/Carro">Comprar Créditos</a>
                         }
                         else
                         {
@@ -95,7 +96,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/Menu/DirecionalMenu">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tabelas</span>
                 </a>

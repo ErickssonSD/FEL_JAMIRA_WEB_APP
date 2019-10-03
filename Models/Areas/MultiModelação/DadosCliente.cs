@@ -39,9 +39,9 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação
         public string CEP { get; set; }
         [Display(Name = "Complemento:")]
         public string Complemento { get; set; }
-        [Display(Name = "Cidade Residente:")]
+        [Display(Name = "Cidade:")]
         public int IdCidade { get; set; }
-        [Display(Name = "Estado Residente:")]
+        [Display(Name = "Estado:")]
         public int IdEstado { get; set; }
     }
 }

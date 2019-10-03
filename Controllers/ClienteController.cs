@@ -1,5 +1,6 @@
 ﻿using FEL_JAMIRA_WEB_APP.Models.Areas.Cliente;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
+using FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
 using FEL_JAMIRA_WEB_APP.Util;
 using System;
@@ -17,9 +18,42 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: MeusDados
         public ActionResult MeusDados()
         {
-            ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
-            ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
-            return View();
+            ViewBag.Cidade = Helpers.GetSelectList("Cidades", null) as SelectList;
+            ViewBag.Estado = Helpers.GetSelectList("Estados", null) as SelectList;
+
+            Cliente retorno = new Cliente();
+            var task = Task.Run(async () => {
+
+                using (BaseController<Cliente> bUsuario = new BaseController<Cliente>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Clientes/BuscarCliente/" + GetIdPessoa(), await GetToken());
+                    retorno = valorRetorno.Data;
+                }
+            });
+
+            task.Wait();
+            DadosCliente dadosCliente = new DadosCliente {
+                Nome = retorno.Nome,
+                Bairro = retorno.EnderecoPessoa.Bairro,
+                CEP = retorno.EnderecoPessoa.CEP,
+                Complemento = retorno.EnderecoPessoa.Complemento,
+                CPF = retorno.CPF,
+                Email = this.GetEmail(),
+                IdCidade = retorno.EnderecoPessoa.IdCidade,
+                IdEstado = retorno.EnderecoPessoa.IdEstado,
+                Nascimento = retorno.Nascimento,
+                Nickname = retorno.Nickname,
+                Numero = retorno.EnderecoPessoa.Numero,
+                RG = retorno.RG,
+                Rua = retorno.EnderecoPessoa.Rua
+            };
+
+            ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
+            ViewBag.Nickname = retorno.Nome;
+            ViewBag.InsereAlerta = !retorno.TemCarro;
+            ViewBag.Level = 2;
+
+            return View(dadosCliente);
         }
 
         [HttpGet]
@@ -29,10 +63,11 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Status = "";
             Carro retorno = new Carro();
             var task = Task.Run(async () => {
+                token_ = await GetToken();
 
                 using (BaseController<Carro> bCarro = new BaseController<Carro>())
                 {
-                    var valorRetorno = await bCarro.GetObjectAsync("Carros/BuscarCarroCliente/" + GetIdPessoa());
+                    var valorRetorno = await bCarro.GetObjectAsyncWithToken("Carros/BuscarCarroCliente/" + GetIdPessoa(), token_);
                     retorno = valorRetorno.Data;
                 }
             });
@@ -53,10 +88,11 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             {
                 ViewBag.Status = "Cadastrar";
             }
+            ViewBag.Nickname = retorno.Cliente.Nome;
             ViewBag.InsereAlerta = !retorno.Cliente.TemCarro;
             ViewBag.Level = 2;
             
-            ViewBag.Marcas = Helpers.GetSelectList("Marcas") as SelectList;
+            ViewBag.Marcas =  Helpers.GetSelectList("Marcas", token_) as SelectList;
             return View(carroCliente);
         }
 
@@ -105,6 +141,27 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 return Json(responseViewModel, JsonRequestBehavior.AllowGet);
             }
             
+        }
+
+        public ActionResult Creditos()
+        {
+            Cliente retorno = new Cliente();
+            var task = Task.Run(async () => {
+
+                using (BaseController<Cliente> bUsuario = new BaseController<Cliente>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Clientes/BuscarCliente/" + GetIdPessoa(), await GetToken());
+                    retorno = valorRetorno.Data;
+                }
+            });
+            task.Wait();
+
+            ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
+            ViewBag.Nickname = retorno.Nome;
+            ViewBag.InsereAlerta = !retorno.TemCarro;
+            ViewBag.Level = 2;
+
+            return View();
         }
     }
 }

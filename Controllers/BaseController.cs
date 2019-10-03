@@ -2,6 +2,7 @@
 using FEL_JAMIRA_WEB_APP.Models.Areas.Cliente;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
+using FEL_JAMIRA_WEB_APP.Util;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
@@ -27,8 +28,58 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         string    UrlParm = System.Configuration.ConfigurationManager.AppSettings["UrlParameter"];
         protected string idCookie;
         protected Usuario _usuario;
+        protected AcessoToken token_;
 
         HttpClient client = new HttpClient();
+
+        public async Task<AcessoToken> GetToken()
+        {
+            string url = URI + "token";
+            AcessoToken responseViewModel = new AcessoToken();
+            string parametroBusca = "username=" + GetEmail().Replace("@", "%40") + "&password=" + Helpers.Decrypt(GetSenha()) + "&grant_type=password";
+
+            var client = new RestClient(url.Replace("/api",""));
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Cookie", "ARRAffinity=c13d130f8c400a60bfdc01febad530e6a1d1e9e931c8df17592f4f879ee76550");
+            request.AddHeader("Content-Length", parametroBusca.Length.ToString());
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", UrlParm);
+            request.AddHeader("Postman-Token", "5982999d-d151-4f76-82ea-9199e1e3a19a,2ca0f27d-7897-4598-bebc-4577c9c2b8cb");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.17.1");
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("undefined", parametroBusca, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+
+            responseViewModel = new JavaScriptSerializer().Deserialize<AcessoToken>(response.Content);
+            return responseViewModel;
+
+        }
+        public async Task<ResponseViewModel<T>> GetObjectAsyncWithToken(string complemento, AcessoToken token)
+        {
+            string url = URI + complemento;
+            ResponseViewModel<T> responseViewModel = new ResponseViewModel<T>();
+
+            var client = new RestClient(url);
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Cookie", "ARRAffinity=c13d130f8c400a60bfdc01febad530e6a1d1e9e931c8df17592f4f879ee76550");
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", UrlParm);
+            request.AddHeader("Postman-Token", "ccb102ac-d035-4074-b572-97750f6f8d66,8fae199d-1732-413c-bf3d-eef93fb60cec");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.17.1");
+            request.AddHeader("Authorization", "Bearer " + token.access_token);
+            IRestResponse response = client.Execute(request);
+
+            responseViewModel = new JavaScriptSerializer().Deserialize<ResponseViewModel<T>>(response.Content);
+            return responseViewModel;
+        }
         public async Task<ResponseViewModel<T>> GetObjectAsync(string complemento)
         {
             try
@@ -71,6 +122,17 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             {
                 throw ex;
             }
+        }
+        public string GetSenha()
+        {
+            if (Request.Cookies["authCookie"] != null)
+            {
+                var decTicket = FormsAuthentication.Decrypt(Request.Cookies["authCookie"].Value);
+                var senha = decTicket.Name.Split('-');
+                return senha[4];
+            }
+            else
+                return "";
         }
         public string GetEmail()
         {
@@ -122,7 +184,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             var task = Task.Run(async () => {
                 using (BaseController<Usuario> bUsuario = new BaseController<Usuario>())
                 { 
-                    var valorRetorno = await bUsuario.GetObjectAsync("Usuarios/Detalhes/" + id);
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Usuarios/Detalhes/" + id, token_);
                     _usuario = valorRetorno.Data;
                 }
             });

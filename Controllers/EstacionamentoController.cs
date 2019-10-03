@@ -1,4 +1,5 @@
 ﻿using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Localizacao;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
 using FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
@@ -23,11 +24,16 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
                 using (BaseController<Estacionamento> bUsuario = new BaseController<Estacionamento>())
                 {
-                    var valorRetorno = await bUsuario.GetObjectAsync("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + GetIdPessoa());
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + GetIdPessoa(), await GetToken());
                     retorno = valorRetorno.Data;
                 }
             });
             task.Wait();
+
+            if (null == retorno.EnderecoEstacionamento)
+            {
+                retorno.EnderecoEstacionamento = new Endereco();
+            }
 
             DadosEstacionamento dadosEstacionamento = new DadosEstacionamento {
                 Bairro = retorno.EnderecoEstacionamento.Bairro,
@@ -84,7 +90,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
                 using (BaseController<Estacionamento> bUsuario = new BaseController<Estacionamento>())
                 {
-                    var valorRetorno = await bUsuario.GetObjectAsync("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + GetIdPessoa());
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + GetIdPessoa(), await GetToken());
                     retorno = valorRetorno.Data;
                 }
             });
@@ -108,6 +114,9 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             {
                 ViewBag.Status = "Cadastrar";
             }
+
+            ViewBag.Cadastrar = "Você precisa cadastrar um endereco para seu estacionamento. clique aqui.";
+            ViewBag.Nickname = retorno.Proprietario.Nome;
             ViewBag.InsereAlerta = !retorno.TemEstacionamento;
             ViewBag.Level = 1;
             return View(enderecoEstacionamento);

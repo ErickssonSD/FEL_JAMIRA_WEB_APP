@@ -2,6 +2,61 @@
 @{
     ViewBag.Title = "Menu";
     Layout = "~/Views/Shared1/_Layout.cshtml";
+    var recebimentos = ViewBag.Recebimentos as List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.Recebimentos>;
+    var usuarios = ViewBag.Usuarios as List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.UsuariosDoEstacionamento>;
+}
+
+@functions {
+    string GetMes(int mes)
+    {
+        string nome = "";
+
+        switch (mes)
+        {
+
+            case 1:
+                nome = "Janeiro";
+                break;
+            case 2:
+                nome = "Fevereiro";
+                break;
+            case 3:
+                nome = "Março";
+                break;
+            case 4:
+                nome = "Abril";
+                break;
+            case 5:
+                nome = "Maio";
+                break;
+            case 6:
+                nome = "Junho";
+                break;
+            case 7:
+                nome = "julho";
+                break;
+            case 8:
+                nome = "Agosto";
+                break;
+            case 9:
+                nome = "Setembro";
+                break;
+            case 10:
+                nome = "Outubro";
+                break;
+            case 11:
+                nome = "Novembro";
+                break;
+            case 12:
+                nome = "Dezembro";
+                break;
+            default:
+                break;
+        }
+
+        return nome;
+    }
+
 }
 
 <div class="container-fluid">
@@ -33,36 +88,16 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>11/01/2019 10:35</td>
-                                <td>11/01/2019 11:35</td>
-                            </tr>
-                            <tr>
-                                <td>Angelina</td>
-                                <td>11/01/2019 09:35</td>
-                                <td>11/01/2019 11:35</td>
-                            </tr>
-                            <tr>
-                                <td>Cambo</td>
-                                <td>12/01/2019 19:35</td>
-                                <td>13/01/2019 11:35</td>
-                            </tr>
-                            <tr>
-                                <td>Cedric</td>
-                                <td>12/01/2019 20:14</td>
-                                <td>12/01/2019 21:35</td>
-                            </tr>
-                            <tr>
-                                <td>Samia</td>
-                                <td>20/01/2019 10:14</td>
-                                <td>20/01/2019 12:00</td>
-                            </tr>
-                            <tr>
-                                <td>Clay</td>
-                                <td>22/01/2019 10:14</td>
-                                <td>22/01/2019 12:00</td>
-                            </tr>
+
+                            @foreach (var item in usuarios)
+                            {
+                                 <tr>
+                                     <td>@item.NomeUsuario</td>
+                                     <td>@item.PeriodoDe</td>
+                                     <td>@item.PeriodoAte</td>
+                                 </tr>
+                            }
+
                         </tbody>
                     </table>
                 </div>
@@ -93,30 +128,13 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            <tr>
-                                <td>Janeiro/2019</td>
-                                <td>500,00</td>
-                            </tr>
-                            <tr>
-                                <td>fevereiro/2019</td>
-                                <td>500,00</td>
-                            </tr>
-                            <tr>
-                                <td>Março/2019</td>
-                                <td>1500,00</td>
-                            </tr>
-                            <tr>
-                                <td>Abril/2019</td>
-                                <td>520,00</td>
-                            </tr>
-                            <tr>
-                                <td>Maio/2019</td>
-                                <td>1520,00</td>
-                            </tr>
-                            <tr>
-                                <td>Junho/2019</td>
-                                <td>785,00</td>
-                            </tr>
+                            @foreach (var item in recebimentos)
+                            {
+                                  <tr>
+                                      <td>@GetMes(item.Date.Month)/@item.Date.Year</td>
+                                      <td>@item.Valor</td>
+                                  </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

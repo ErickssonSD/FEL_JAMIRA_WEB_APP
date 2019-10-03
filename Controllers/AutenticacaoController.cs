@@ -34,6 +34,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 if (loginUsuario.Sucesso.Equals(true))
                 {
                     string KeyCookieIP = Guid.NewGuid().ToString().Substring(0, 7);
+                    loginUsuario.Data.Senha = usuario.Senha;
 
                     AdministradorAutenticacao.SetCookieParaUsuario(loginUsuario.Data, usuario.ManterConectado, KeyCookieIP);
 
@@ -58,8 +59,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: Autenticacao/RegistrarCliente
         public ActionResult RegistrarCliente()
         {
-            ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
-            ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
+            ViewBag.Cidade = Helpers.GetSelectList("Cidades", null) as SelectList;
+            ViewBag.Estado = Helpers.GetSelectList("Estados", null) as SelectList;
 
             return View();
         }
@@ -76,9 +77,14 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 }).Wait();
 
                 if (responseViewModel.Sucesso)
+                {
                     return RedirectToAction("Login");
+                }
                 else
+                {
+                    ModelState.AddModelError(string.Empty, responseViewModel.Mensagem);
                     return View(cadastroCliente);
+                }
             }
             else
             {
@@ -89,8 +95,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: Autenticacao/RegistrarEstacionamento
         public ActionResult RegistrarEstacionamento()
         {
-            ViewBag.Cidade = Helpers.GetSelectList("Cidades") as SelectList;
-            ViewBag.Estado = Helpers.GetSelectList("Estados") as SelectList;
+            ViewBag.Cidade = Helpers.GetSelectList("Cidades", null) as SelectList;
+            ViewBag.Estado = Helpers.GetSelectList("Estados", null) as SelectList;
 
             return View();
         }
@@ -105,11 +111,16 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                     ResponseViewModel<Usuario> returnResponse = await PostObject(cadastroEstacionamento, "Estacionamentos/CadastrarFornecedor");
                     responseViewModel = returnResponse;
                 }).Wait();
-               
-                if(responseViewModel.Sucesso)
+
+                if (responseViewModel.Sucesso)
+                {
                     return RedirectToAction("Login");
+                }
                 else
+                {
+                    ModelState.AddModelError(string.Empty, responseViewModel.Mensagem);
                     return View(cadastroEstacionamento);
+                }
             }
             else
             {

@@ -9,7 +9,7 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema
 {
     public class Estacionamento
     {
-        public int IdEstacionamento { get; set; }
+        public int Id { get; set; }
         public string NomeEstacionamento { get; set; }
         public string CNPJ { get; set; }
         public string InscricaoEstadual { get; set; }
