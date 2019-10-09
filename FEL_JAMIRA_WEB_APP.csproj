@@ -185,10 +185,13 @@
     <Compile Include="Models\Areas\Autenticacao\LoginRequisicao.cs" />
     <Compile Include="Models\Areas\Autenticacao\Usuario.cs" />
     <Compile Include="Models\Areas\Cliente\CarroCliente.cs" />
+    <Compile Include="Models\Areas\Cliente\CarroRetorno.cs" />
     <Compile Include="Models\Areas\Cliente\EstacionamentosDoCliente.cs" />
     <Compile Include="Models\Areas\Cliente\TransacoesDoCliente.cs" />
+    <Compile Include="Models\Areas\Estacionamento\DadosSolicitantes.cs" />
     <Compile Include="Models\Areas\Estacionamento\EnderecoEstacionamento.cs" />
     <Compile Include="Models\Areas\Estacionamento\Recebimentos.cs" />
+    <Compile Include="Models\Areas\Estacionamento\Solicitantes.cs" />
     <Compile Include="Models\Areas\Estacionamento\UsuariosDoEstacionamento.cs" />
     <Compile Include="Models\Areas\Localizacao\Cidade.cs" />
     <Compile Include="Models\Areas\Localizacao\Endereco.cs" />
@@ -252,6 +255,7 @@
     <Content Include="Content\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
+    <Content Include="JAMIRA.pfx" />
     <None Include="Properties\PublishProfiles\jamira - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\jamira - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -300,6 +304,7 @@
     <Content Include="Views\Estacionamento\Endereco.cshtml" />
     <Content Include="Views\Cliente\Carro.cshtml" />
     <Content Include="Views\Cliente\Creditos.cshtml" />
+    <Content Include="Views\Estacionamento\SolicitacoesEmAberto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,6 +325,12 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>JAMIRA.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

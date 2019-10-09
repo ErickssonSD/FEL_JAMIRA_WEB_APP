@@ -22,6 +22,8 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação
         public string CPF { get; set; }
         [Display(Name = "RG do Proprietário:")]
         public string RG { get; set; }
+        [Display(Name = "Valor por Hora:")]
+        public int ValorHora { get; set; }
         [Required(ErrorMessage = "O campo apelido é obrigatório:")]
         [Display(Name = "Apelido:")]
         public string Nickname { get; set; }

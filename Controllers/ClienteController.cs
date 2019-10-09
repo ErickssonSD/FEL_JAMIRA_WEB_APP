@@ -61,11 +61,11 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         {
             CarroCliente carroCliente = new CarroCliente();
             ViewBag.Status = "";
-            Carro retorno = new Carro();
+            CarroRetorno retorno = new CarroRetorno();
             var task = Task.Run(async () => {
                 token_ = await GetToken();
 
-                using (BaseController<Carro> bCarro = new BaseController<Carro>())
+                using (BaseController<CarroRetorno> bCarro = new BaseController<CarroRetorno>())
                 {
                     var valorRetorno = await bCarro.GetObjectAsyncWithToken("Carros/BuscarCarroCliente/" + GetIdPessoa(), token_);
                     retorno = valorRetorno.Data;
@@ -88,9 +88,9 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             {
                 ViewBag.Status = "Cadastrar";
             }
-            ViewBag.Nickname = retorno.Cliente.Nome;
-            ViewBag.InsereAlerta = !retorno.Cliente.TemCarro;
-            ViewBag.Level = 2;
+            ViewBag.Nickname = retorno.Nome;
+            ViewBag.InsereAlerta = retorno.Alerta;
+            ViewBag.Level = retorno.Level;
             
             ViewBag.Marcas =  Helpers.GetSelectList("Marcas", token_) as SelectList;
             return View(carroCliente);
@@ -108,7 +108,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                     var task = Task.Run(async () => {
                         using (BaseController<CarroCliente> baseController = new BaseController<CarroCliente>())
                         {
-                            var retorno = await baseController.PostObject(carroCliente, "Carros/Registrar");
+                            var retorno = await baseController.PostWithToken(carroCliente, "Carros/Registrar", await GetToken());
                             responseViewModel = retorno;
                         }
                     });
@@ -144,6 +144,27 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         }
 
         public ActionResult Creditos()
+        {
+            Cliente retorno = new Cliente();
+            var task = Task.Run(async () => {
+
+                using (BaseController<Cliente> bUsuario = new BaseController<Cliente>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Clientes/BuscarCliente/" + GetIdPessoa(), await GetToken());
+                    retorno = valorRetorno.Data;
+                }
+            });
+            task.Wait();
+
+            ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
+            ViewBag.Nickname = retorno.Nome;
+            ViewBag.InsereAlerta = !retorno.TemCarro;
+            ViewBag.Level = 2;
+
+            return View();
+        }
+
+        public ActionResult Solicitacoes()
         {
             Cliente retorno = new Cliente();
             var task = Task.Run(async () => {

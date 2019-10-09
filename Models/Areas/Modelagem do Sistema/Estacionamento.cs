@@ -14,6 +14,7 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema
         public string CNPJ { get; set; }
         public string InscricaoEstadual { get; set; }
         public bool TemEstacionamento { get; set; }
+        public int ValorHora { get; set; }
         public int? IdEnderecoEstabelecimento { get; set; }
         public int IdPessoa { get; set; }
         public Pessoa Proprietario { get; set; }

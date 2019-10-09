@@ -58,6 +58,34 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             return responseViewModel;
 
         }
+
+        public async Task<ResponseViewModel<T>> PostWithToken(object oParametro, string complemento, AcessoToken token)
+        {
+            string url = URI + complemento;
+            var data = JsonConvert.SerializeObject(oParametro);
+            ResponseViewModel<T> responseViewModel = new ResponseViewModel<T>();
+
+            var client = new RestClient(url);
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Content-Length", data.Length.ToString());
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", UrlParm);
+            request.AddHeader("Postman-Token", "4b3481cf-d11a-4afc-a600-490c27950f27,726d7fab-e9a8-4c8f-b3db-69cc3fada191");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.17.1");
+            request.AddHeader("Authorization", "Bearer " + token.access_token);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", data, ParameterType.RequestBody);
+
+            IRestResponse response = client.Execute(request);
+
+            responseViewModel = new JavaScriptSerializer().Deserialize<ResponseViewModel<T>>(response.Content);
+            return responseViewModel;
+        }
+
         public async Task<ResponseViewModel<T>> GetObjectAsyncWithToken(string complemento, AcessoToken token)
         {
             string url = URI + complemento;

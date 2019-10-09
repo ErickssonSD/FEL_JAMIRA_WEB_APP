@@ -134,7 +134,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                     var task = Task.Run(async () => {
                         using (BaseController<EnderecoEstacionamento> baseController = new BaseController<EnderecoEstacionamento>())
                         {
-                            var retorno = await baseController.PostObject(enderecoEstacionamento, "Enderecos/Registrar");
+                            var retorno = await baseController.PostWithToken(enderecoEstacionamento, "Enderecos/Registrar", await GetToken());
                             responseViewModel = retorno;
                         }
                     });
@@ -166,6 +166,49 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
                 return Json(responseViewModel, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpGet]
+        public ActionResult SolicitacoesEmAberto()
+        {
+            DadosSolicitantes retorno = new DadosSolicitantes();
+            var task = Task.Run(async () => {
+
+                using (BaseController<DadosSolicitantes> bUsuario = new BaseController<DadosSolicitantes>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesEmAberto?idUsuario=" + GetIdPessoa(), await GetToken());
+                    retorno = valorRetorno.Data;
+                }
+            });
+            task.Wait();
+
+            ViewBag.Cadastrar = "Você precisa cadastrar um endereco para seu estacionamento. clique aqui.";
+            ViewBag.Nickname = retorno.Estacionamento.Proprietario.Nome;
+            ViewBag.InsereAlerta = !retorno.Estacionamento.TemEstacionamento;
+            ViewBag.Level = 1;
+            ViewBag.Solicitacoes = retorno.Solicitantes;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SolicitacoesParaFinalizar()
+        {
+            //Solicitantes retorno = new Solicitantes();
+            //var task = Task.Run(async () => {
+
+            //    using (BaseController<Solicitantes> bUsuario = new BaseController<Solicitantes>())
+            //    {
+            //        var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesParaFinalizar?idUsuario=" + GetIdPessoa(), await GetToken());
+            //        retorno = valorRetorno.Data;
+            //    }
+            //});
+            //task.Wait();
+
+            //ViewBag.Cadastrar = "Você precisa cadastrar um endereco para seu estacionamento. clique aqui.";
+            //ViewBag.Nickname = retorno.Estacionamento.Proprietario.Nome;
+            //ViewBag.InsereAlerta = !retorno.Estacionamento.TemEstacionamento;
+            //ViewBag.Level = 1;
+            return View();
         }
     }
 }
