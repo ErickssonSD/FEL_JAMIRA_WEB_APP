@@ -8,10 +8,13 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento
 {
     public class Solicitantes
     {
+        public string Nickname { get; set; }
+        public bool InsereAlerta { get; set; }
         public int IdSolicitacao { get; set; }
         public int IdCliente { get; set; }
         public string NomeCliente { get; set; }
-        public Carro Carro { get; set; }
+        public string PlacaCarro { get; set; }
+        public string Carro { get; set; }
         public int Status { get; set; }
         public DateTime? PeriodoDe { get; set; }
         public DateTime? PeriodoAte { get; set; }

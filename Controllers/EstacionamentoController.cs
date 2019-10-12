@@ -171,10 +171,10 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         [HttpGet]
         public ActionResult SolicitacoesEmAberto()
         {
-            DadosSolicitantes retorno = new DadosSolicitantes();
+            List<Solicitantes> retorno = new List<Solicitantes>();
             var task = Task.Run(async () => {
 
-                using (BaseController<DadosSolicitantes> bUsuario = new BaseController<DadosSolicitantes>())
+                using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
                 {
                     var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesEmAberto?idUsuario=" + GetIdPessoa(), await GetToken());
                     retorno = valorRetorno.Data;
@@ -183,11 +183,45 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             task.Wait();
 
             ViewBag.Cadastrar = "Você precisa cadastrar um endereco para seu estacionamento. clique aqui.";
-            ViewBag.Nickname = retorno.Estacionamento.Proprietario.Nome;
-            ViewBag.InsereAlerta = !retorno.Estacionamento.TemEstacionamento;
+            ViewBag.Nickname = (retorno.First()).Nickname;
+            ViewBag.InsereAlerta = (retorno.First()).InsereAlerta;
             ViewBag.Level = 1;
-            ViewBag.Solicitacoes = retorno.Solicitantes;
+            ViewBag.Solicitacoes = retorno;
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult AprovarSolicitacao(string id)
+        {
+            try
+            {
+                int valor = int.Parse(id);
+                Solicitantes retorno = new Solicitantes();
+                var task = Task.Run(async () => {
+
+                    using (BaseController<Solicitantes> bUsuario = new BaseController<Solicitantes>())
+                    {
+                        var valorRetorno = await bUsuario.PostWithToken("","Solicitacao/AprovarSolicitacao?IdSolicitacao=" + valor, await GetToken());
+                        retorno = valorRetorno.Data;
+                    }
+                });
+                task.Wait();
+
+                return Json(retorno, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
+                ResponseViewModel<EnderecoEstacionamento> responseViewModel = new ResponseViewModel<EnderecoEstacionamento>
+                {
+                    Data = null,
+                    Mensagem = "Ocorreu um erro ao processar sua solicitação." + e.Message,
+                    Serializado = true,
+                    Sucesso = false
+                };
+                return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         [HttpGet]

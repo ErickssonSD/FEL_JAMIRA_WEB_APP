@@ -3,10 +3,27 @@
     Layout = "~/Views/Shared1/_Layout.cshtml";
     List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.Solicitantes> solicitantes = ViewBag.Solicitacoes;
 }
-    <div class="container-fluid">
-        <div class="card mb-4 py-3 border-bottom-primary" style="width:50%;">
-            <div class="card-body">
-                Arturo - Uno - Fiat <a href="#" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a> <a href="#" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
-            </div>
-        </div>
+
+    <div class="container-fluid" style="justify-content: center; display: flex;">
+       @foreach (var item in solicitantes)
+       {
+
+           <div class="card mb-4 py-3 border-bottom-primary" style="width:50%;" id="@item.IdSolicitacao--">
+               <div class="card-body" style="text-align: center;">
+                   <b>Nome: </b>@item.NomeCliente - <b>Carro: </b>@item.Carro - <b>Placa: </b>@item.PlacaCarro
+                   <div style="float: right;">
+                       <button class="btn btn-success btn-circle" onclick="Aprovar(@item.IdSolicitacao)">
+                           <i class="fas fa-check"></i>
+                       </button>
+                       <button class="btn btn-danger btn-circle" onclick="Reprovar(@item.IdSolicitacao)">
+                           <i class="fas fa-trash"></i>
+                       </button>
+                   </div>
+               </div>
+           </div>
+
+       }
     </div>
+
+    <script src="~/Scripts/Areas/SolicitacaoAberto.js"></script>
+

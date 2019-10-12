@@ -240,6 +240,7 @@
     <Content Include="Scripts\Areas\MenuCliente.js" />
     <Content Include="Scripts\Areas\MenuFornecedor.js" />
     <Content Include="Content\Ballon.css" />
+    <Content Include="Scripts\Areas\SolicitacaoAberto.js" />
     <Content Include="Scripts\Areas\Util.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
