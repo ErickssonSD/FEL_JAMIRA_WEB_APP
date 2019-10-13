@@ -51,6 +51,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
             ViewBag.Nickname = retorno.Nome;
             ViewBag.InsereAlerta = !retorno.TemCarro;
+            ViewBag.InsereAlerta2 = false;
+            ViewBag.InsereAlerta3 = true;
             ViewBag.Level = 2;
 
             return View(dadosCliente);
@@ -90,6 +92,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             }
             ViewBag.Nickname = retorno.Nome;
             ViewBag.InsereAlerta = retorno.Alerta;
+            ViewBag.InsereAlerta2 = false;
+            ViewBag.InsereAlerta3 = false;
             ViewBag.Level = retorno.Level;
             
             ViewBag.Marcas =  Helpers.GetSelectList("Marcas", token_) as SelectList;
@@ -159,6 +163,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
             ViewBag.Nickname = retorno.Nome;
             ViewBag.InsereAlerta = !retorno.TemCarro;
+            ViewBag.InsereAlerta2 = false;
+            ViewBag.InsereAlerta3 = false;
             ViewBag.Level = 2;
 
             return View();
@@ -180,6 +186,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
             ViewBag.Nickname = retorno.Nome;
             ViewBag.InsereAlerta = !retorno.TemCarro;
+            ViewBag.InsereAlerta2 = false;
+            ViewBag.InsereAlerta3 = false;
             ViewBag.Level = 2;
 
             return View();

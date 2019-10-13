@@ -20,6 +20,21 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult FaleConosco(FaleConosco faleConosco)
+        {
+            FaleConosco retorno = new FaleConosco();
+            var task = Task.Run(async () => {
+                using (BaseController<FaleConosco> bUsuario = new BaseController<FaleConosco>())
+                {
+                    var valorRetorno = await bUsuario.PostWithToken(faleConosco, "FaleConosco/Cadastrar", await GetToken());
+                    retorno = valorRetorno.Data;
+                }
+            });
+            return View();
+        }
+
+
         // GET: Cliente
         //[Authorize]
         public ActionResult Cliente()
@@ -61,6 +76,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Transacoes = transacoesDoClientes.OrderByDescending(x => x.DataTransacao).ToList() as List<TransacoesDoCliente>;
             ViewBag.Estacionamentos = estacionamentosDoClientes.OrderByDescending(x => x.PeriodoDe).ToList() as List<EstacionamentosDoCliente>;
             ViewBag.InsereAlerta = !cliente.TemCarro;
+            ViewBag.InsereAlerta2 = false;
+            ViewBag.InsereAlerta3 = false;
             ViewBag.Nickname = cliente.Nome;
             ViewBag.Cadastrar = "Você precisa cadastrar um carro. clique aqui.";
             ViewBag.Saldo = string.Format("{0:N}", cliente.Saldo);
@@ -81,7 +98,9 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             GetUsuario();
             List<Recebimentos> recebimentos = new List<Recebimentos>();
             List<UsuariosDoEstacionamento> usuariosDoEstacionamento = new List<UsuariosDoEstacionamento>();
-            
+            List<Solicitantes> solicitacoes = new List<Solicitantes>();
+            List<Solicitantes> solicitacoes2 = new List<Solicitantes>();
+
             //Recebimentos e Usuarios do Estacionamento
             Estacionamento estacionamento = new Estacionamento();
             var task = Task.Run(async () => {
@@ -106,11 +125,25 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                     var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetUsuariosDoEstacionamento?idUsuario=" + estacionamento.Id, token_);
                     usuariosDoEstacionamento = valorRetorno.Data;
                 }
+
+                using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesEmAberto?idUsuario=" + GetIdPessoa(), await GetToken());
+                    solicitacoes = valorRetorno.Data;
+                }
+
+                using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesParaFinalizar?idUsuario=" + GetIdPessoa(), await GetToken());
+                    solicitacoes2 = valorRetorno.Data;
+                }
             });
             task.Wait();
             ViewBag.Recebimentos = recebimentos?.OrderByDescending(x => x.Date).ToList() as List<Recebimentos>;
             ViewBag.Usuarios = usuariosDoEstacionamento?.OrderByDescending(x => x.PeriodoDe).ToList() as List<UsuariosDoEstacionamento>;
             ViewBag.InsereAlerta = !estacionamento.TemEstacionamento;
+            ViewBag.InsereAlerta2 = solicitacoes.Count > 0 && solicitacoes.First().NomeCliente != null ? true : false;
+            ViewBag.InsereAlerta3 = solicitacoes2.Count > 0 && solicitacoes2.First().NomeCliente != null ? true : false;
             ViewBag.Nickname = estacionamento.Proprietario.Nome;
             ViewBag.Cadastrar = "Você precisa cadastrar um endereco para seu estacionamento. clique aqui.";
             ViewBag.Level = 1;

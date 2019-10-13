@@ -10,5 +10,6 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Cliente
         public string NomeEstacionamento { get; set; }
         public DateTime PeriodoDe { get; set; }
         public DateTime PeriodoAte { get; set; }
+        public double ValorTotal { get; set; }
     }
 }

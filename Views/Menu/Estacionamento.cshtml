@@ -78,6 +78,7 @@
                                 <th>Nome</th>
                                 <th>Período de</th>
                                 <th>Período até</th>
+                                <th>Valor Ganho</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -85,6 +86,7 @@
                                 <th>Nome</th>
                                 <th>Período de</th>
                                 <th>Período até</th>
+                                <th>Valor Ganho</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -95,9 +97,9 @@
                                      <td>@item.NomeUsuario</td>
                                      <td>@item.PeriodoDe</td>
                                      <td>@item.PeriodoAte</td>
+                                     <td><div style="float:right;">$@Math.Round(item.ValorGanho, 2)</div></td>
                                  </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>

@@ -66,6 +66,7 @@
                                 <th>Estacionamento:</th>
                                 <th>Período De:</th>
                                 <th>Período Até:</th>
+                                <th>Valor Gasto:</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -73,6 +74,7 @@
                                 <th>Estacionamento:</th>
                                 <th>Período De:</th>
                                 <th>Período Até:</th>
+                                <th>Valor Gasto:</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -82,6 +84,7 @@
                                      <td>@item.NomeEstacionamento</td>
                                      <td>@item.PeriodoDe.ToString()</td>
                                      <td>@item.PeriodoAte.ToString()</td>
+                                     <td><div style="float:right;">$@Math.Round(item.ValorTotal, 2)</div></td>
                                  </tr>
                              }
                         </tbody>

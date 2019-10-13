@@ -1,14 +1,13 @@
-﻿function Aprovar(idSolicitacao)
-{
+﻿function Finalizar(idSolicitacao) {
     debugger;
     valor = String(idSolicitacao);
-     $.ajax({
-          url: "/Estacionamento/AprovarSolicitacao",
-          type : 'post',
-          data : {
-               id: valor
-          },
-          beforeSend : function () {
+    $.ajax({
+        url: "/Estacionamento/FinalizarSolicitacao",
+        type: 'post',
+        data: {
+            id: valor
+        },
+        beforeSend : function () {
                $("#--" + idSolicitacao).show();
             }
      })
@@ -20,8 +19,4 @@
         $('#fracasso').modal('show');
         $("#--" + idSolicitacao).hide();
     }); 
-}
-
-function Reprovar(idSolicitacao) {
-
 }
