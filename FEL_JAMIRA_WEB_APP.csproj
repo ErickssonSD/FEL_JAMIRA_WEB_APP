@@ -191,6 +191,7 @@
     <Compile Include="Models\Areas\Estacionamento\DadosSolicitantes.cs" />
     <Compile Include="Models\Areas\Estacionamento\EnderecoEstacionamento.cs" />
     <Compile Include="Models\Areas\Estacionamento\Recebimentos.cs" />
+    <Compile Include="Models\Areas\Estacionamento\RecebimentosFiltrados.cs" />
     <Compile Include="Models\Areas\Estacionamento\Solicitantes.cs" />
     <Compile Include="Models\Areas\Estacionamento\UsuariosDoEstacionamento.cs" />
     <Compile Include="Models\Areas\Localizacao\Cidade.cs" />

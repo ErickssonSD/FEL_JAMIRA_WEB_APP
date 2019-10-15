@@ -232,7 +232,14 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.InsereAlerta2 = solicitacoes.Count > 0 && solicitacoes.First().NomeCliente != null ? true : false;
             ViewBag.InsereAlerta3 = solicitacoes2.Count > 0 && solicitacoes2.First().NomeCliente != null ? true : false;
             ViewBag.Level = 1;
-            ViewBag.Solicitacoes = retorno;
+            if (retorno.First().NomeCliente == null)
+            {
+                ViewBag.Solicitacoes = new List<Solicitantes>();
+            }
+            else
+            {
+                ViewBag.Solicitacoes = retorno;
+            }
             return View();
         }
 

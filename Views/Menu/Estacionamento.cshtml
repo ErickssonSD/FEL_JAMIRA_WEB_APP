@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Menu";
     Layout = "~/Views/Shared1/_Layout.cshtml";
-    var recebimentos = ViewBag.Recebimentos as List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.Recebimentos>;
+    var recebimentos = ViewBag.Recebimentos as List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.RecebimentosFiltrados>;
     var usuarios = ViewBag.Usuarios as List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.UsuariosDoEstacionamento>;
 }
 
@@ -62,7 +62,7 @@
 <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Tabelas</h1>
+        <h1 class="h3 mb-2 text-gray-800">Dashboard</h1>
         <p class="mb-4">Aqui você encontra informações sobre suas as ultimas atividades relacionadas ao seu estacionamento.</p>
 
         <!-- DataTales Example -->
@@ -133,7 +133,7 @@
                             @foreach (var item in recebimentos)
                             {
                                   <tr>
-                                      <td>@GetMes(item.Date.Month)/@item.Date.Year</td>
+                                      <td>@GetMes(item.Mes)/@item.Ano</td>
                                       <td>@item.Valor</td>
                                   </tr>
                             }

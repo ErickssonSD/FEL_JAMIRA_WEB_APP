@@ -5,9 +5,11 @@ using System.Web;
 
 namespace FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento
 {
-    public class Recebimentos
+    public class RecebimentosFiltrados
     {
-        public string MesAno { get; set; }
+        public int MesAno { get; set; }
+        public int Ano { get; set; }
+        public int Mes { get; set; }
         public double Valor { get; set; }
     }
 }

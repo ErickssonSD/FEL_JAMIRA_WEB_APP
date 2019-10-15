@@ -97,6 +97,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
             GetUsuario();
             List<Recebimentos> recebimentos = new List<Recebimentos>();
+            List<RecebimentosFiltrados> recebimentosFiltrados = new List<RecebimentosFiltrados>();
             List<UsuariosDoEstacionamento> usuariosDoEstacionamento = new List<UsuariosDoEstacionamento>();
             List<Solicitantes> solicitacoes = new List<Solicitantes>();
             List<Solicitantes> solicitacoes2 = new List<Solicitantes>();
@@ -139,7 +140,17 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 }
             });
             task.Wait();
-            ViewBag.Recebimentos = recebimentos?.OrderByDescending(x => x.Date).ToList() as List<Recebimentos>;
+            foreach (var item in recebimentos)
+            {
+                var it = item.MesAno.Split('-');
+                RecebimentosFiltrados recebimentos1 = new RecebimentosFiltrados();
+                recebimentos1.Mes = int.Parse(it[0]);
+                recebimentos1.Ano = int.Parse(it[1]);
+                recebimentos1.MesAno = recebimentos1.Mes + recebimentos1.Ano;
+                recebimentos1.Valor = item.Valor;
+                recebimentosFiltrados.Add(recebimentos1);
+            }
+            ViewBag.Recebimentos = recebimentosFiltrados?.OrderByDescending(x => x.MesAno).ToList() as List<RecebimentosFiltrados>;
             ViewBag.Usuarios = usuariosDoEstacionamento?.OrderByDescending(x => x.PeriodoDe).ToList() as List<UsuariosDoEstacionamento>;
             ViewBag.InsereAlerta = !estacionamento.TemEstacionamento;
             ViewBag.InsereAlerta2 = solicitacoes.Count > 0 && solicitacoes.First().NomeCliente != null ? true : false;
