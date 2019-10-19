@@ -2,6 +2,7 @@
 using FEL_JAMIRA_WEB_APP.Models.Areas.Cliente;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
 using FEL_JAMIRA_WEB_APP.Util;
 using System;
 using System.Collections.Generic;
@@ -17,21 +18,68 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
     {
         public ActionResult FaleConosco()
         {
+            Cliente cliente = new Cliente();
+
+            var task1 = Task.Run(async () => {
+                this.token_ = await GetToken();
+
+                using (BaseController<Cliente> bUsuario = new BaseController<Cliente>())
+                {
+
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Clientes/Detalhes/" + GetIdPessoa(), token_);
+                    cliente = valorRetorno.Data;
+                }
+            });
+            task1.Wait();
+
+            ViewBag.Nickname = cliente.Nome;
+            ViewBag.InsereAlerta = !cliente.TemCarro;
+            ViewBag.InsereAlerta2 = false;
+            ViewBag.InsereAlerta3 = false;
+            ViewBag.Level = 2;
+            ViewBag.Categorias = Helpers.GetSelectList("CategoriaFaleConosco", token_);
             return View();
         }
 
         [HttpPost]
-        public ActionResult FaleConosco(FaleConosco faleConosco)
+        public JsonResult CadastrarFaleConosco(FaleConosco faleConosco)
         {
-            FaleConosco retorno = new FaleConosco();
-            var task = Task.Run(async () => {
-                using (BaseController<FaleConosco> bUsuario = new BaseController<FaleConosco>())
+            try
+            {
+                if (ModelState.IsValid)
                 {
-                    var valorRetorno = await bUsuario.PostWithToken(faleConosco, "FaleConosco/Cadastrar", await GetToken());
-                    retorno = valorRetorno.Data;
+                    ResponseViewModel<FaleConosco> responseViewModel = new ResponseViewModel<FaleConosco>();
+                    faleConosco.IdPessoa = GetIdPessoa();
+                    faleConosco.DataCriacao = DateTime.Now;
+
+                    FaleConosco retorno = new FaleConosco();
+                    var task = Task.Run(async () =>
+                    {
+                        using (BaseController<FaleConosco> bUsuario = new BaseController<FaleConosco>())
+                        {
+                            var valorRetorno = await bUsuario.PostWithToken(faleConosco, "FaleConosco/Cadastrar", await GetToken());
+                            responseViewModel = valorRetorno;
+                        }
+                    });
+                    task.Wait();
+                    return Json(responseViewModel, JsonRequestBehavior.AllowGet);
                 }
-            });
-            return View();
+                else
+                    throw new Exception("Valores inválidos.");
+            }
+            catch (Exception e)
+            {
+                ResponseViewModel<FaleConosco> responseViewModel = new ResponseViewModel<FaleConosco>
+                {
+                    Data = faleConosco,
+                    Mensagem = "Ocorreu um erro ao processar sua solicitação.",
+                    Serializado = true,
+                    Sucesso = false
+                };
+
+                return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
 

@@ -198,6 +198,7 @@
     <Compile Include="Models\Areas\Localizacao\Endereco.cs" />
     <Compile Include="Models\Areas\Localizacao\Estado.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Carro.cs" />
+    <Compile Include="Models\Areas\Modelagem do Sistema\CategoriaFaleConosco.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Cliente.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Estacionamento.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\FaleConosco.cs" />
@@ -238,6 +239,7 @@
     <Content Include="ReleaseNotes.css" />
     <Content Include="Scripts\Areas\Carro.js" />
     <Content Include="Scripts\Areas\Estacionamento.js" />
+    <Content Include="Scripts\Areas\FaleConosco.js" />
     <Content Include="Scripts\Areas\Login.js" />
     <Content Include="Scripts\Areas\MenuCliente.js" />
     <Content Include="Scripts\Areas\MenuFornecedor.js" />

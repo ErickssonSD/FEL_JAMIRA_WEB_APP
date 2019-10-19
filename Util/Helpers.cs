@@ -114,6 +114,29 @@ namespace FEL_JAMIRA_WEB_APP.Util
                         SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);
                         return selectList;
                     }
+                case "CategoriaFaleConosco":
+                    using (BaseController<List<CategoriaFaleConosco>> b2 = new BaseController<List<CategoriaFaleConosco>>())
+                    {
+                        ResponseViewModel<List<CategoriaFaleConosco>> retornoEstados = new ResponseViewModel<List<CategoriaFaleConosco>>();
+
+                        var task = Task.Run(async () => {
+                            ResponseViewModel<List<CategoriaFaleConosco>> returnTask = await b2.GetObjectAsyncWithToken("CategoriaFaleConosco/GetAll", token);
+                            retornoEstados = returnTask;
+                        });
+                        task.Wait();
+
+                        List<SelectListItem> selectListItem = new List<SelectListItem>();
+                        SelectListItem selectedListItem = new SelectListItem { Selected = true, Text = "Selecione", Value = "99999" };
+                        selectListItem.Add(selectedListItem);
+
+                        foreach (var item in retornoEstados.Data)
+                        {
+                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.NomeCategoria, Value = item.Id.ToString() };
+                            selectListItem.Add(selectTempListItem);
+                        }
+                        SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);
+                        return selectList;
+                    }
                 default:
                     return new SelectList(null);
             }
