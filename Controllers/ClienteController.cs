@@ -52,7 +52,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Nickname = retorno.Nome;
             ViewBag.InsereAlerta = !retorno.TemCarro;
             ViewBag.InsereAlerta2 = false;
-            ViewBag.InsereAlerta3 = true;
+            ViewBag.InsereAlerta3 = false;
             ViewBag.Level = 2;
 
             return View(dadosCliente);

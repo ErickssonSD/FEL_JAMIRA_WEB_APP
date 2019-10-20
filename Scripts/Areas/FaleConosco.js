@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
 
     $("#cadastrar").click(function (event) {
-        debugger;
         event.preventDefault();
         var $this = $("#cadastrar");
         var form = document.getElementById("formFaleConosco");
@@ -19,7 +18,6 @@
             $("#loading").hide();
             $('#IdCategoria').val(99999);
             $('#Texto').val('');
-            debugger;
             if (msg.Sucesso === true) {
                 $('#sucesso').modal('show');
             } else {

@@ -13,6 +13,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link href="~/Content/Menus/all.css" rel="stylesheet" type="text/css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -25,11 +26,11 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
-                            <div class="alert alert-success center" role="alert">
-                                <span class="glyphicon glyphicon-user" style="float:left;" aria-hidden="true"></span>
-                                <h3><b>Cadastro de Cliente</b></h3>
-                                <h5>Por favor preencha os campos abaixo!</h5>
-                            </div>
+                        <div class="alert alert-success center" role="alert">
+                            <span class="glyphicon glyphicon-user" style="float:left;" aria-hidden="true"></span>
+                            <h3><b>Cadastro de Cliente</b></h3>
+                            <h5>Por favor preencha os campos abaixo!</h5>
+                        </div>
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="panel panel-default">
@@ -99,9 +100,18 @@
                                 </div>
 
                                 <div class="form-group">
+                                    @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @Id = "IdCep", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div id="aguardeCEP" style="width: 100%; text-align: center; display:none;">Aguarde...</div>
+                                </div>
+
+                                <div class="form-group">
                                     @Html.LabelFor(model => model.Rua, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { @Id = "Rua", @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Rua, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -117,23 +127,15 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @Id = "Bairro", @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @Id = "Complemento", @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -160,7 +162,7 @@
                                     <input style="background:none; border:none;" type="submit" value="Cadastrar" />
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 }
@@ -177,6 +179,7 @@
             <p>&copy; @DateTime.Now.Year - FEL_JAMIRA - Todos os direitos reservados.</p>
         </footer>
     </div>
+
     <div id="particles"></div>
 
     @Scripts.Render("~/bundles/jquery")

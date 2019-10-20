@@ -5,13 +5,13 @@
     List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.Solicitantes> solicitantes = ViewBag.Solicitacoes;
 }
 
-    <div class="container-fluid" style="justify-content: center; display: flex;">
+    <div class="container-fluid" style="justify-content: center; display: block;">
         @if (solicitantes.Count > 0)
         {
             foreach (var item in solicitantes)
             {
 
-                <div class="card mb-4 py-3 border-bottom-primary" style="width:50%;" id="@item.IdSolicitacao--">
+                <div class="card mb-4 py-3 border-bottom-primary" style="width:100%;" id="@item.IdSolicitacao--">
                     <div class="card-body" style="text-align: center;">
                         <b>Nome: </b>@item.NomeCliente - <b>Carro: </b>@item.Carro - <b>Placa: </b>@item.PlacaCarro
                         <div style="float: right;">

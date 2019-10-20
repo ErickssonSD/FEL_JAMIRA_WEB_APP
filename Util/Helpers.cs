@@ -85,7 +85,7 @@ namespace FEL_JAMIRA_WEB_APP.Util
 
                         foreach (var item in retornoEstados.Data)
                         {
-                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.NomeEstado, Value = item.Id.ToString() };
+                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.Sigla, Value = item.Id.ToString() };
                             selectListItem.Add(selectTempListItem);
                         }
                         SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);

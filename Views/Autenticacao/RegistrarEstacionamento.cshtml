@@ -14,6 +14,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -133,9 +134,18 @@
                              </div>
                              <div class="panel-body">
                                  <div class="form-group">
+                                     @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
+                                     <div class="col-md-10">
+                                         @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @Id = "IdCep", @class = "form-control" } })
+                                         @Html.ValidationMessageFor(model => model.CEP, "", new {  @class = "text-danger" })
+                                     </div>
+                                     <div id="aguardeCEP" style="width: 100%; text-align: center; display:none;">Aguarde...</div>
+                                 </div>
+
+                                 <div class="form-group">
                                      @Html.LabelFor(model => model.Rua, htmlAttributes: new { @class = "control-label col-md-2" })
                                      <div class="col-md-10">
-                                         @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { @class = "form-control" } })
+                                         @Html.EditorFor(model => model.Rua, new { htmlAttributes = new {  @Id = "Rua", @class = "form-control" } })
                                          @Html.ValidationMessageFor(model => model.Rua, "", new { @class = "text-danger" })
                                      </div>
                                  </div>
@@ -152,7 +162,7 @@
                                      @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
                                      <div class="col-md-10">
                                          @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
-                                         @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+                                         @Html.ValidationMessageFor(model => model.Bairro, "", new { @Id = "Bairro", @class = "text-danger" })
                                      </div>
                                  </div>
 
@@ -172,18 +182,12 @@
                                      </div>
                                  </div>
 
-                                 <div class="form-group">
-                                     @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
-                                     <div class="col-md-10">
-                                         @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
-                                         @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
-                                     </div>
-                                 </div>
+
 
                                  <div class="form-group">
                                      @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
                                      <div class="col-md-10">
-                                         @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                                         @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @Id = "Complemento", @class = "form-control" } })
                                          @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
                                      </div>
                                  </div>

@@ -6,88 +6,124 @@
     Layout = "~/Views/Shared1/_Layout.cshtml";
     SelectList Cidade = ViewBag.Cidade as SelectList;
     SelectList Estado = ViewBag.Estado as SelectList;
+    string mensagem = status == "Atualizar" ? "atualizado" : "cadastrado";
 }
-@Scripts.Render("~/bundles/menuEstacionamento")
-    <link rel="stylesheet" href="~/Content/Areas/boot.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <div class="container-fluid">
-        <div id="sucesso" class="alert alert-success" role="alert" style="display:none;">
-            <h4 class="alert-heading">Sucesso</h4>
-            <p>Seu Endereço foi cadastrado com sucesso!</p>
-            <hr>
-            <p class="mb-0">Agora os cliente já podem o visualizar.</p>
+
+<link rel="stylesheet" href="~/Content/Areas/boot.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<div class="container-fluid">
+
+
+    <h1 class="h3 mb-2 text-gray-800">Formulário de Endereço</h1>
+    <p class="mb-4">Por favor, preencha os registros abaixo.</p>
+    <hr />
+    @using (Html.BeginForm("RegistrarEstacionamento", "Estacionamento", FormMethod.Post, new { id = "formEstacionamento" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rua)
+            @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { @Id = "Rua", @class = "form-control", placeholder = "Rua dos eucaliptos..." } })
+            @Html.ValidationMessageFor(model => model.Rua, "", new { @class = "text-danger" })
         </div>
 
-        <div id="fracasso" class="alert alert-danger" role="alert" style="display:none;">
-            <h4 class="alert-heading">Erro</h4>
-            <p>Não foi possível atender sua solicitação.</p>
-            <hr>
-            <p class="mb-0">Você pode estar realizando o cadastro novamente mais tarde.</p>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Complemento)
+                @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @Id = "Complemento", @class = "form-control", placeholder = "Esquina.." } })
+                @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @Id = "Bairro", @class = "form-control", placeholder = "Bairro das aldeias..." } })
+                @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-2">
+                @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control", placeholder = "157.." } })
+                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+            </div>
         </div>
 
-        <h1 class="h3 mb-2 text-gray-800">Formulário de Endereço</h1>
-        <p class="mb-4">Por favor, preencha os registros abaixo.</p>
-        <hr />
-        @using (Html.BeginForm("RegistrarEstacionamento", "Estacionamento", FormMethod.Post, new { id = "formEstacionamento" }))
-        {
-            @Html.AntiForgeryToken()
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Rua)
-                @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { @class = "form-control", placeholder = "Rua dos eucaliptos" } })
-                @Html.ValidationMessageFor(model => model.Rua, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.IdCidade)
+                @Html.DropDownListFor(model => model.IdCidade, Cidade != null ? Cidade.Items as List<SelectListItem> : new List<SelectListItem>(), new { @class = "form-control", placeholder = "Cidade..." })
+                @Html.ValidationMessageFor(model => model.IdCidade, "", new { @class = "text-danger" })
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Complemento)
-                    @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control", placeholder = "Esquina.." } })
-                    @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control", placeholder = "Bairro das aldeias" } })
-                    @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group col-md-2">
-                    @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control", placeholder = "157.." } })
-                    @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
-                </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.IdEstado)
+                @Html.DropDownListFor(model => model.IdEstado, Estado != null ? Estado.Items as List<SelectListItem> : new List<SelectListItem>(), new { @class = "form-control", placeholder = "Estado..." })
+                @Html.ValidationMessageFor(model => model.IdEstado, "", new { @class = "text-danger" })
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.IdCidade)
-                    @Html.DropDownListFor(model => model.IdCidade, Cidade != null ? Cidade.Items as List<SelectListItem> : new List<SelectListItem>(), new { @class = "form-control", placeholder = "Cidade..." })
-                    @Html.ValidationMessageFor(model => model.IdCidade, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(model => model.IdEstado)
-                    @Html.DropDownListFor(model => model.IdEstado, Estado != null ? Estado.Items as List<SelectListItem> : new List<SelectListItem>(), new { @class = "form-control", placeholder = "Estado..." })
-                    @Html.ValidationMessageFor(model => model.IdEstado, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group col-md-2">
-                    @Html.LabelFor(model => model.CEP)
-                    @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+            <div class="form-group col-md-2">
+                @Html.LabelFor(model => model.CEP)
+                @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @Id = "IdCep", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+            </div>
+            <div style="width: 100%;">
+                <div id="aguardeCEP" class="spinner-border text-primary" role="status" style="display:none; float:right;">
+                    <span class="sr-only">Aguarde...</span>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <a href="#" id="cadastrar" class="btn btn-primary btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-flag"></i>
-                        </span>
-                        <span class="text">@status</span>
-                    </a>
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="#" id="cadastrar" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-flag"></i>
+                    </span>
+                    <span class="text">@status</span>
+                </a>
             </div>
-        }
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="fracasso" tabindex="-4" role="dialog" aria-labelledby="Fracasso" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Não deu...</h5>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-danger btn-circle">
+                    X
+                </button>
+
+                Não foi possivel atender sua solicitação!
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="modal fade" id="sucesso" tabindex="-3" role="dialog" aria-labelledby="Sucesso" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sucesso</h5>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-success btn-circle">
+                    <i class="fas fa-check"></i>
+                </button>
+
+                Seu Endereço foi @mensagem com sucesso!
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+@Scripts.Render("~/bundles/menuEstacionamento")

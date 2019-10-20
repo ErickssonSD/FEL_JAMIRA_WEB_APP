@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared1/_Layout.cshtml";
     var recebimentos = ViewBag.Recebimentos as List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.RecebimentosFiltrados>;
     var usuarios = ViewBag.Usuarios as List<FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento.UsuariosDoEstacionamento>;
+    int usuariosAtivos = ViewBag.UsuariosAtivos;
+    int valorHora = ViewBag.ValorHora;
 }
 
 @functions {
@@ -56,10 +58,45 @@
 
         return nome;
     }
-
 }
 
-<div class="container-fluid">
+    <div class="container-fluid">
+
+        <div class="row" style="justify-content:center;">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary"><h6><b>Usuários Ativos</b></h6></div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" style="text-align:center;">
+                                    @usuariosAtivos
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success"><h6><b>Valor/Hr</b></h6></div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$@valorHora</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Dashboard</h1>
@@ -93,12 +130,12 @@
 
                             @foreach (var item in usuarios)
                             {
-                                 <tr>
-                                     <td>@item.NomeUsuario</td>
-                                     <td>@item.PeriodoDe</td>
-                                     <td>@item.PeriodoAte</td>
-                                     <td><div style="float:right;">$@Math.Round(item.ValorGanho, 2)</div></td>
-                                 </tr>
+                                <tr>
+                                    <td>@item.NomeUsuario</td>
+                                    <td>@item.PeriodoDe</td>
+                                    <td>@item.PeriodoAte</td>
+                                    <td><div style="float:right;">$@Math.Round(item.ValorGanho, 2)</div></td>
+                                </tr>
                             }
                         </tbody>
                     </table>

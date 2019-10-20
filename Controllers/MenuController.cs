@@ -16,6 +16,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 {
     public class MenuController : BaseController<Usuario>
     {
+        [Authorize]
         public ActionResult FaleConosco()
         {
             Cliente cliente = new Cliente();
@@ -42,6 +43,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult CadastrarFaleConosco(FaleConosco faleConosco)
         {
             try
@@ -84,7 +86,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
 
         // GET: Cliente
-        //[Authorize]
+        [Authorize(Roles = "Cliente")]
         public ActionResult Cliente()
         {
             var task1 = Task.Run(async () => {
@@ -135,7 +137,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         }
 
         // GET: Estacionamento
-        //[Authorize]
+        [Authorize(Roles = "Estacionamento")]
         public ActionResult Estacionamento()
         {
             var task1 = Task.Run(async () => {
@@ -149,6 +151,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             List<UsuariosDoEstacionamento> usuariosDoEstacionamento = new List<UsuariosDoEstacionamento>();
             List<Solicitantes> solicitacoes = new List<Solicitantes>();
             List<Solicitantes> solicitacoes2 = new List<Solicitantes>();
+            List<Solicitantes> solicitacoes3 = new List<Solicitantes>();
 
             //Recebimentos e Usuarios do Estacionamento
             Estacionamento estacionamento = new Estacionamento();
@@ -186,6 +189,12 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                     var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesParaFinalizar?idUsuario=" + GetIdPessoa(), await GetToken());
                     solicitacoes2 = valorRetorno.Data;
                 }
+
+                using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetUsuariosAtivosSolicitacao?idUsuario=" + GetIdPessoa(), await GetToken());
+                    solicitacoes3 = valorRetorno.Data;
+                }
             });
             task.Wait();
             foreach (var item in recebimentos)
@@ -198,6 +207,10 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 recebimentos1.Valor = item.Valor;
                 recebimentosFiltrados.Add(recebimentos1);
             }
+            if (solicitacoes3.Count == 1 && solicitacoes3.First().NomeCliente == null)
+                solicitacoes3 = new List<Solicitantes>();
+            ViewBag.UsuariosAtivos = solicitacoes3.Count;
+            ViewBag.ValorHora = estacionamento.ValorHora;
             ViewBag.Recebimentos = recebimentosFiltrados?.OrderByDescending(x => x.MesAno).ToList() as List<RecebimentosFiltrados>;
             ViewBag.Usuarios = usuariosDoEstacionamento?.OrderByDescending(x => x.PeriodoDe).ToList() as List<UsuariosDoEstacionamento>;
             ViewBag.InsereAlerta = !estacionamento.TemEstacionamento;

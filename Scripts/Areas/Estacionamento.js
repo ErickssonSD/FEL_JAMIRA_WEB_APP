@@ -2,18 +2,25 @@
     $("#cadastrar").click(function (event) {
         event.preventDefault();
         var $this = $("#cadastrar");
-        $this.button('loading');
+        $('#aguardeCEP').show();
         var form = document.getElementById("formEstacionamento");
         var data = $(form).serialize();
         $.post(form.action, data, function (response) {
             if (response && response.Data) {
-                if (response.Serializado === true) {
-                    $('#sucesso').css('display', 'block');
+                if (response.Sucesso === true) {
+                    $('#sucesso').modal('show');
                     $('#alertas').css('display', 'none');
-                } else {
-                    $('#fracasso').css('display', 'block');
+                }
+                else
+                {
+                    $('#fracasso').modal('show');
                 }
             }
+            else
+            {
+                $('#fracasso').modal('show');
+            }
         });
+        $('#aguardeCEP').hide();
     });
 });

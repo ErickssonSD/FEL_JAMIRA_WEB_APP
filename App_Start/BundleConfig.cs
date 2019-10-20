@@ -31,7 +31,8 @@ namespace FEL_JAMIRA_WEB_APP
 
             bundles.Add(new ScriptBundle("~/bundles/menuEstacionamento").Include(
             "~/Scripts/jquery-{version}.js",
-            "~/Scripts/Areas/Estacionamento.js"));
+            "~/Scripts/Areas/Estacionamento.js",
+            "~/Scripts/Util.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/menuCarro").Include(
             "~/Scripts/jquery-{version}.js",

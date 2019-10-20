@@ -21,22 +21,22 @@ namespace FEL_JAMIRA_WEB_APP.Util
         {
             try
             {
-                  var oTimeOut = DateTime.Now.AddMinutes(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CookiesTimeOut"].ToString()));
-                  //Serializando dados do usuário
-                  string nome = Helpers.Encrypt(Helpers.Encrypt(Helpers.Encrypt(new JavaScriptSerializer().Serialize(usuario))));
-                  var authTicket = new FormsAuthenticationTicket(1, nome, DateTime.Now, oTimeOut, false, ".");
-                  var encTicket = FormsAuthentication.Encrypt(authTicket);
-                  FormsAuthentication.SetAuthCookie
-                    (usuario.Id.ToString()+"-"+usuario.IdPessoa.ToString() + "-" + usuario.Level.ToString()
-                    +"-"+usuario.Login.ToString()+"-"+Helpers.Encrypt(usuario.Senha)
-                    , true);
-                  var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
-                  {
-                      Value = encTicket,
-                      Expires = DateTime.Now.AddMinutes(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CookiesTimeOut"].ToString()))
-                  };
-                  HttpContext.Current.Response.Cookies.Add(cookie);
-                  AddMyCookie("KeyCookieIP", KeyCookieIP);
+                var oTimeOut = DateTime.Now.AddMinutes(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CookiesTimeOut"].ToString()));
+                //Serializando dados do usuário
+                string nome = Helpers.Encrypt(Helpers.Encrypt(Helpers.Encrypt(new JavaScriptSerializer().Serialize(usuario))));
+                var authTicket = new FormsAuthenticationTicket(1, nome, DateTime.Now, oTimeOut, false, ".");
+                var encTicket = FormsAuthentication.Encrypt(authTicket);
+                string voucher = usuario.Id.ToString() + "-" + usuario.IdPessoa.ToString() + "-" + usuario.Level.ToString()
+                  + "-" + usuario.Login.ToString() + "-" + Helpers.Encrypt(usuario.Senha);
+                   
+                FormsAuthentication.SetAuthCookie(voucher, true);
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
+                {
+                    Value = encTicket,
+                    Expires = DateTime.Now.AddMinutes(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CookiesTimeOut"].ToString()))
+                };
+                HttpContext.Current.Response.Cookies.Add(cookie);
+                AddMyCookie("KeyCookieIP", KeyCookieIP);
             }
             catch (Exception e)
             {

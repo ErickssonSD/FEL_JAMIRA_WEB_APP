@@ -4,25 +4,14 @@
     ViewBag.Title = "Carro";
     Layout = "~/Views/Shared1/_Layout.cshtml";
     string status = ViewBag.Status;
+    string mensagem = status == "Atualizar" ? "atualizado" : "cadastrado";
 
     SelectList Marca = ViewBag.Marcas as SelectList;
 }
 @Scripts.Render("~/bundles/menuCarro")
 <link rel="stylesheet" href="~/Content/Areas/boot.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <div class="container-fluid">
-    <div id="sucesso" class="alert alert-success" role="alert" style="display:none;">
-        <h4 class="alert-heading">Sucesso</h4>
-        <p>Seu carro foi cadastrado com sucesso!</p>
-        <hr>
-        <p class="mb-0">Agora ele será identificado quando você requisitar um estacionamento.</p>
-    </div>
 
-    <div id="fracasso" class="alert alert-danger" role="alert" style="display:none;">
-        <h4 class="alert-heading">Erro</h4>
-        <p>Não foi possível atender sua solicitação.</p>
-        <hr>
-        <p class="mb-0">Você pode estar realizando o cadastro novamente mais tarde.</p>
-    </div>
 
     <h1 class="h3 mb-2 text-gray-800">Meu Carro</h1>
     <p class="mb-4">Aqui você encontra tudo sobre seu carro.</p>
@@ -37,7 +26,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Placa, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Placa, new { htmlAttributes = new { @class = "form-control", placeholder = "BEE4R22" } })
+                    @Html.EditorFor(model => model.Placa, new { htmlAttributes = new { @class = "form-control", placeholder = "BEE4R22..." } })
                     @Html.ValidationMessageFor(model => model.Placa, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -45,7 +34,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Porte, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Porte, new { htmlAttributes = new { @class = "form-control",  placeholder = "Medio" } })
+                    @Html.EditorFor(model => model.Porte, new { htmlAttributes = new { @class = "form-control", placeholder = "Pequeno...Medio...Grande" } })
                     @Html.ValidationMessageFor(model => model.Porte, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -53,7 +42,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", placeholder = "GOL"} })
+                    @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", placeholder = "GOL..UNO" } })
                     @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -79,4 +68,51 @@
             </div>
         </div>
     }
+    <div style="width: 100%;">
+        <div id="aguarde" class="spinner-border text-primary" role="status" style="display:none; float:right;">
+            <span class="sr-only">Aguarde...</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="fracasso" tabindex="-4" role="dialog" aria-labelledby="Fracasso" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Não deu...</h5>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-danger btn-circle">
+                    X
+                </button>
+
+                Não foi possivel atender sua solicitação!
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sucesso" tabindex="-3" role="dialog" aria-labelledby="Sucesso" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sucesso</h5>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-success btn-circle">
+                    <i class="fas fa-check"></i>
+                </button>
+                Seu carro foi @mensagem com sucesso!
+                <br />
+                <p class="mb-0">Agora ele será identificado quando você requisitar um estacionamento.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
 </div>
