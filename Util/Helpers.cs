@@ -1,4 +1,5 @@
 ﻿using FEL_JAMIRA_WEB_APP.Controllers;
+using FEL_JAMIRA_WEB_APP.Models.Areas.ContaDeposito;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Localizacao;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
@@ -132,6 +133,52 @@ namespace FEL_JAMIRA_WEB_APP.Util
                         foreach (var item in retornoEstados.Data)
                         {
                             SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.NomeCategoria, Value = item.Id.ToString() };
+                            selectListItem.Add(selectTempListItem);
+                        }
+                        SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);
+                        return selectList;
+                    }
+                case "Banco":
+                    using (BaseController<List<Banco>> b2 = new BaseController<List<Banco>>())
+                    {
+                        ResponseViewModel<List<Banco>> retornoEstados = new ResponseViewModel<List<Banco>>();
+
+                        var task = Task.Run(async () => {
+                            ResponseViewModel<List<Banco>> returnTask = await b2.GetObjectAsync("Estacionamentos/GetBancos");
+                            retornoEstados = returnTask;
+                        });
+                        task.Wait();
+
+                        List<SelectListItem> selectListItem = new List<SelectListItem>();
+                        SelectListItem selectedListItem = new SelectListItem { Selected = true, Text = "Selecione", Value = "99999" };
+                        selectListItem.Add(selectedListItem);
+
+                        foreach (var item in retornoEstados.Data)
+                        {
+                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.Nome, Value = item.Id.ToString() };
+                            selectListItem.Add(selectTempListItem);
+                        }
+                        SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);
+                        return selectList;
+                    }
+                case "TipoConta":
+                    using (BaseController<List<TipoConta>> b2 = new BaseController<List<TipoConta>>())
+                    {
+                        ResponseViewModel<List<TipoConta>> retornoEstados = new ResponseViewModel<List<TipoConta>>();
+
+                        var task = Task.Run(async () => {
+                            ResponseViewModel<List<TipoConta>> returnTask = await b2.GetObjectAsync("Estacionamentos/GetTipoContas");
+                            retornoEstados = returnTask;
+                        });
+                        task.Wait();
+
+                        List<SelectListItem> selectListItem = new List<SelectListItem>();
+                        SelectListItem selectedListItem = new SelectListItem { Selected = true, Text = "Selecione", Value = "99999" };
+                        selectListItem.Add(selectedListItem);
+
+                        foreach (var item in retornoEstados.Data)
+                        {
+                            SelectListItem selectTempListItem = new SelectListItem { Selected = false, Text = item.Nome, Value = item.Id.ToString() };
                             selectListItem.Add(selectTempListItem);
                         }
                         SelectList selectList = new SelectList(selectListItem, "Text", "Value", 99999);

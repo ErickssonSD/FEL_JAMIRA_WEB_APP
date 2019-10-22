@@ -121,7 +121,7 @@
                             @foreach (var item in transacoes)
                             {
                                 <tr>
-                                    <td>@item.Valor$</td>
+                                    <td>$@string.Format("{0:N}", item.Valor)</td>
                                     <td>@item.DataTransacao.ToString()</td>
                                 </tr>
                             }

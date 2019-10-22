@@ -3,7 +3,7 @@
     ViewBag.Title = "Creditos";
     Layout = "~/Views/Shared1/_Layout.cshtml";
 }
-
+@Scripts.Render("~/bundles/Creditos")
 @Styles.Render(("~/Content/menuUsuarios"))
 
 
@@ -21,6 +21,82 @@
             </span>
             <span class="text">Seguir</span>
         </button>
-    </div>
 
-@Scripts.Render("~/bundles/menuCliente")
+        <div id="Pagamentos" class="card mb-4 py-3 border-left-primary" style="margin-top:5%; display: none;">
+            <div class="card-header">
+                Processamento da Operação
+            </div>
+            <div class="card-body">
+                <div class="row" style="flex-wrap: nowrap;">
+                    <input style="width: 100%;display:inline-block;" type="radio" id="IdBandeira" name="Bandeira" value="Visa"> <img src="~/Imagens/Visa.PNG" style="width:5%; height: 5%;" /> <br>
+                    <input style="width: 100%;display:inline-block;" type="radio" id="IdBandeira" name="Bandeira" value="MasterCard"> <img src="~/Imagens/MasterCard.PNG" style="width:5%; height: 5%;" /> <br>
+                    <input style="width: 100%;display:inline-block;" type="radio" id="IdBandeira" name="Bandeira" value="Elo"> <img src="~/Imagens/Elo.PNG" style="width:5%; height: 5%;" /> <br>
+                    <input style="width: 100%;display:inline-block;" type="radio" id="IdBandeira" name="Bandeira" value="DinersClub"> <img src="~/Imagens/DinersClub.PNG" style="width:5%; height: 5%;" /> <br>
+                    <input style="width: 100%;display:inline-block;" type="radio" id="IdBandeira" name="Bandeira" value="AmericanExpress"> <img src="~/Imagens/AmericanExpress.PNG" style="width:5%; height: 5%;" /> <br>
+                </div>
+                <div class="form-group" style="margin-top: 2%;">
+                    <input type="text" class="form-control form-control-user" id="NomeTitular" placeholder="Nome do Titular do Cartão">
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="text" class="form-control form-control-user" id="NumeroCartao" placeholder="Número do Cartão">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control form-control-user" id="CVV" placeholder="CVV">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control form-control-user" id="Vencimento" placeholder="Vencimento do Cartão">
+                    </div>
+                </div>
+                <button id="RealizarPagamento" class="btn btn-primary btn-icon-split" style="float:left;">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    <span class="text">Realizar Pagamento</span>
+                </button>
+                <div id="aguardar" class="spinner-border text-primary" role="status" style="display:none; float:left;">
+                    <span class="sr-only">Aguarde...</span>
+                </div>
+                <img src="~/Imagens/PagSeguro.PNG" style="float:right; width: 28%;" />
+            </div>
+        </div>
+
+        <div class="modal fade" id="fracasso" tabindex="-4" role="dialog" aria-labelledby="Fracasso" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Não deu...</h5>
+                    </div>
+                    <div class="modal-body">
+                        <button class="btn btn-danger btn-circle">
+                            X
+                        </button>
+                        Não foi possivel atender sua solicitação!
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="sucesso" tabindex="-3" role="dialog" aria-labelledby="Sucesso" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sucesso</h5>
+                    </div>
+                    <div class="modal-body">
+                        <button class="btn btn-success btn-circle">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        Compra Realizada com Sucesso.
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" href="/Menu/Cliente">Ok</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/menuCliente")

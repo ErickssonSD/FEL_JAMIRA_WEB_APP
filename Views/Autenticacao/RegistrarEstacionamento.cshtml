@@ -6,6 +6,8 @@
 
     SelectList Cidade = ViewBag.Cidade as SelectList;
     SelectList Estado = ViewBag.Estado as SelectList;
+    SelectList Bancos = ViewBag.Banco as SelectList;
+    SelectList TipoContas = ViewBag.TipoConta as SelectList;
 }
 
 <!DOCTYPE html>
@@ -126,6 +128,46 @@
                                          @Html.ValidationMessageFor(model => model.ConfirmaSenha, "", new { @class = "text-danger" })
                                      </div>
                                  </div>
+                             </div>
+                         </div>
+                         <div class="panel panel-default">
+                             <div class="panel-heading">
+                                 <h3 class="panel-title">Conta para Depósito</h3>
+                             </div>
+                             <div class="panel-body">
+
+                                 <div class="form-group">
+                                     @Html.LabelFor(model => model.Agencia, htmlAttributes: new { @class = "control-label col-md-2" })
+                                     <div class="col-md-10">
+                                         @Html.EditorFor(model => model.Agencia, new { htmlAttributes = new { @Id = "Agencia", @class = "form-control" } })
+                                         @Html.ValidationMessageFor(model => model.Agencia, "", new { @class = "text-danger" })
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     @Html.LabelFor(model => model.Conta, htmlAttributes: new { @class = "control-label col-md-2" })
+                                     <div class="col-md-10">
+                                         @Html.EditorFor(model => model.Conta, new { htmlAttributes = new { @Id = "Conta", @class = "form-control" } })
+                                         @Html.ValidationMessageFor(model => model.Conta, "", new { @class = "text-danger" })
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     @Html.LabelFor(model => model.IdTipoConta, htmlAttributes: new { @class = "control-label col-md-2" })
+                                     <div class="col-md-10">
+                                         @Html.DropDownListFor(model => model.IdTipoConta, TipoContas != null ? TipoContas.Items as List<SelectListItem> : new List<SelectListItem>(), new { @class = "form-control" })
+                                         @Html.ValidationMessageFor(model => model.IdTipoConta, "", new { @class = "text-danger" })
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     @Html.LabelFor(model => model.IdBanco, htmlAttributes: new { @class = "control-label col-md-2" })
+                                     <div class="col-md-10">
+                                         @Html.DropDownListFor(model => model.IdBanco, Bancos != null ? Bancos.Items as List<SelectListItem> : new List<SelectListItem>(), new { @class = "form-control" })
+                                         @Html.ValidationMessageFor(model => model.IdBanco, "", new { @class = "text-danger" })
+                                     </div>
+                                 </div>
+
                              </div>
                          </div>
                          <div class="panel panel-default">

@@ -14,6 +14,7 @@ using System.Web.Security;
 
 namespace FEL_JAMIRA_WEB_APP.Controllers
 {
+    [Authorize]
     public class MenuController : BaseController<Usuario>
     {
         [Authorize]
@@ -84,8 +85,6 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
         }
 
-
-        // GET: Cliente
         [Authorize(Roles = "Cliente")]
         public ActionResult Cliente()
         {
@@ -136,7 +135,6 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             return View();
         }
 
-        // GET: Estacionamento
         [Authorize(Roles = "Estacionamento")]
         public ActionResult Estacionamento()
         {
@@ -222,6 +220,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult MeusDados()
         {
             int meuLevel = GetLevel();
@@ -233,6 +232,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 return RedirectToAction("Login", "Autenticacao");
         }
 
+        [Authorize]
         public ActionResult DirecionalMenu()
         {
             int meuLevel = GetLevel();
@@ -244,6 +244,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 return RedirectToAction("Login", "Autenticacao");
         }
 
+        [Authorize]
         public ActionResult DirecionalCadastro()
         {
             int meuLevel = GetLevel();
@@ -254,6 +255,5 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             else
                 return RedirectToAction("Login", "Autenticacao");
         }
-
     }
 }

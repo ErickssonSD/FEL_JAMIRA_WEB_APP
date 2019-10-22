@@ -23,6 +23,12 @@ namespace FEL_JAMIRA_WEB_APP
             bundles.Add(new ScriptBundle("~/bundles/loginJs").Include(
             "~/Scripts/Areas/Login.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/Creditos").Include(
+            "~/Scripts/jquery-{version}.js",
+            "~/Scripts/Mask.js",
+            "~/Scripts/Areas/Creditos.js"
+           ));
+
             bundles.Add(new ScriptBundle("~/bundles/menuFornecedor").Include(
             "~/Scripts/Areas/MenuFornecedor.js"));
 

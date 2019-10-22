@@ -56,6 +56,18 @@ namespace FEL_JAMIRA_WEB_APP.Models.Areas.Autenticacao
         public int IdCidade { get; set; }
         [Display(Name = "Estado do Proprietário:")]
         public int IdEstado { get; set; }
+        [Required(ErrorMessage = "O campo agência é obrigatório")]
+        [Display(Name = "Agência:")]
+        public string Agencia { get; set; }
+        [Required(ErrorMessage = "O campo conta é obrigatório")]
+        [Display(Name = "Conta:")]
+        public string Conta { get; set; }
+        [Required(ErrorMessage = "O campo banco é obrigatório")]
+        [Display(Name = "Banco:")]
+        public int IdBanco { get; set; }
+        [Required(ErrorMessage = "O campo tipo da conta é obrigatório")]
+        [Display(Name = "Tipo da Conta:")]
+        public int IdTipoConta { get; set; }
 
     }
 }

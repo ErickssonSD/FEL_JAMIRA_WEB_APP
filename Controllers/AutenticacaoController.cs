@@ -18,6 +18,13 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         // GET: Autenticacao/Login
         public ActionResult Login()
         {
+            var pessoa = GetLevel();
+            if (pessoa != -1)
+                if (pessoa == 1)
+                    return RedirectToAction("Estacionamento", "Menu");
+                else
+                    return RedirectToAction("Cliente", "Menu");
+
             return View();
         }
 
@@ -82,6 +89,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 }
                 else
                 {
+                    ViewBag.Cidade = Helpers.GetSelectList("Cidades", null) as SelectList;
+                    ViewBag.Estado = Helpers.GetSelectList("Estados", null) as SelectList;
                     ModelState.AddModelError(string.Empty, responseViewModel.Mensagem);
                     return View(cadastroCliente);
                 }
@@ -97,6 +106,8 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         {
             ViewBag.Cidade = Helpers.GetSelectList("Cidades", null) as SelectList;
             ViewBag.Estado = Helpers.GetSelectList("Estados", null) as SelectList;
+            ViewBag.Banco = Helpers.GetSelectList("Banco", null) as SelectList;
+            ViewBag.TipoConta = Helpers.GetSelectList("TipoConta", null) as SelectList;
 
             return View();
         }
@@ -118,6 +129,11 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 }
                 else
                 {
+                    ViewBag.Cidade = Helpers.GetSelectList("Cidades", null) as SelectList;
+                    ViewBag.Estado = Helpers.GetSelectList("Estados", null) as SelectList;
+                    ViewBag.Banco = Helpers.GetSelectList("Banco", null) as SelectList;
+                    ViewBag.TipoConta = Helpers.GetSelectList("TipoConta", null) as SelectList;
+
                     ModelState.AddModelError(string.Empty, responseViewModel.Mensagem);
                     return View(cadastroEstacionamento);
                 }

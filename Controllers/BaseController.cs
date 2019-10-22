@@ -31,7 +31,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         protected AcessoToken token_;
 
         HttpClient client = new HttpClient();
-
+        [Authorize]
         public async Task<AcessoToken> GetToken()
         {
             string url = URI + "token";
@@ -58,7 +58,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             return responseViewModel;
 
         }
-
+        [Authorize]
         public async Task<ResponseViewModel<T>> PostWithToken(object oParametro, string complemento, AcessoToken token)
         {
             string url = URI + complemento;
@@ -85,7 +85,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             responseViewModel = new JavaScriptSerializer().Deserialize<ResponseViewModel<T>>(response.Content);
             return responseViewModel;
         }
-
+        [Authorize]
         public async Task<ResponseViewModel<T>> GetObjectAsyncWithToken(string complemento, AcessoToken token)
         {
             string url = URI + complemento;
@@ -151,6 +151,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                 throw ex;
             }
         }
+        [Authorize]
         public string GetSenha()
         {
             if (Request.Cookies["authCookie"] != null)
@@ -162,6 +163,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             else
                 return "";
         }
+        [Authorize]
         public string GetEmail()
         {
             if (Request.Cookies["authCookie"] != null)
@@ -173,6 +175,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             else
                 return "";
         }
+        [Authorize]
         public int GetLevel()
         {
             if (Request.Cookies["authCookie"] != null)
@@ -184,6 +187,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             else
                 return -1;
         }
+        [Authorize]
         public void GetUsuario()
         {
             if (Request.Cookies["authCookie"] != null)
@@ -195,7 +199,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             else
                 RedirectToAction("Login", "Autenticacao");
         }
-
+        [Authorize]
         public int GetIdPessoa()
         {
             if (Request.Cookies["authCookie"] != null)
@@ -218,6 +222,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             });
             task.Wait();
         }
+        [Authorize]
         public async Task DeletaProdutoAsync(object produto, string complemento)
         {
             //string url = "http://www.macwebapi.somee.com/api/produtos/{0}";

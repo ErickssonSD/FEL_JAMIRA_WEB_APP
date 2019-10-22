@@ -1,6 +1,5 @@
 ﻿function Aprovar(idSolicitacao)
 {
-    debugger;
     valor = String(idSolicitacao);
      $.ajax({
           url: "/Estacionamento/AprovarSolicitacao",

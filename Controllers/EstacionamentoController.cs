@@ -1,4 +1,5 @@
-﻿using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
+﻿using FEL_JAMIRA_WEB_APP.Models.Areas.ContaDeposito;
+using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Localizacao;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
 using FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação;
@@ -13,7 +14,7 @@ using System.Web.Mvc;
 
 namespace FEL_JAMIRA_WEB_APP.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Estacionamento")]
     public class EstacionamentoController : BaseController<Pessoa>
     {
         // GET: MeusDados
@@ -22,6 +23,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             Estacionamento retorno = new Estacionamento();
             List<Solicitantes> solicitacoes = new List<Solicitantes>();
             List<Solicitantes> solicitacoes2 = new List<Solicitantes>();
+            ContaDeposito contaDeposito = new ContaDeposito();
             var task = Task.Run(async () => {
 
                 using (BaseController<Estacionamento> bUsuario = new BaseController<Estacionamento>())
@@ -41,6 +43,12 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                     var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesParaFinalizar?idUsuario=" + GetIdPessoa(), await GetToken());
                     solicitacoes2 = valorRetorno.Data;
                 }
+
+                using (BaseController<ContaDeposito> bUsuario = new BaseController<ContaDeposito>())
+                {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Estacionamentos/GetContaDepositoPorPessoa?IdPessoa=" + GetIdPessoa(), await GetToken());
+                    contaDeposito = valorRetorno.Data;
+                }
             });
             task.Wait();
 
@@ -50,6 +58,10 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             }
 
             DadosEstacionamento dadosEstacionamento = new DadosEstacionamento {
+                Agencia = contaDeposito.Agencia,
+                Conta = contaDeposito.Conta,
+                IdBanco = contaDeposito.IdBanco,
+                IdTipoConta = contaDeposito.IdTipoConta, 
                 Bairro = retorno.EnderecoEstacionamento.Bairro,
                 CEP = retorno.EnderecoEstacionamento.CEP,
                 CNPJ = retorno.CNPJ,
@@ -81,7 +93,10 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Nickname     = retorno.Proprietario.Nome;
             ViewBag.Cidade       = Helpers.GetSelectList("Cidades") as SelectList;
             ViewBag.Estado       = Helpers.GetSelectList("Estados") as SelectList;
+            ViewBag.Banco        = Helpers.GetSelectList("Banco", null) as SelectList;
+            ViewBag.TipoConta    = Helpers.GetSelectList("TipoConta", null) as SelectList;
             ViewBag.Level        = GetLevel();
+            ViewBag.Cadastrar = "Você precisa cadastrar um endereco para seu estacionamento. clique aqui.";
             return View(dadosEstacionamento);
         }
 

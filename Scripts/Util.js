@@ -5,6 +5,8 @@
         if (url.indexOf("RegistrarEstacionamento") !== -1) {
             var $Cnpj = $("#CNPJ");
             $Cnpj.mask('00.000.000/0000-00', { reverse: true });
+            var $Conta = $("#Conta");
+            $Conta.mask('0000000-0', { reverse: true });
         }
 
         var $Cpf = $("#CPF");

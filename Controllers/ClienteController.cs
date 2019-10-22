@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace FEL_JAMIRA_WEB_APP.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Cliente")]
     public class ClienteController : BaseController<Pessoa>
     {
         // GET: MeusDados
@@ -168,6 +168,58 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
             ViewBag.Level = 2;
 
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult ComprarCreditos(string value)
+        {
+            try
+            {
+                if(!string.IsNullOrEmpty(value))
+                {
+                    CompraCreditos compraCreditos = new CompraCreditos {
+                        Credito = Convert.ToDouble(value),
+                        DataTransacao = DateTime.Now,
+                        IdCliente = GetIdPessoa()
+                    };
+
+                    ResponseViewModel<CompraCreditos> responseViewModel = new ResponseViewModel<CompraCreditos>();
+                    var task = Task.Run(async () => {
+                        using (BaseController<CompraCreditos> baseController = new BaseController<CompraCreditos>())
+                        {
+                            var retorno = await baseController.PostWithToken(compraCreditos, "CompraCreditos/CreditarConta", await GetToken());
+                            responseViewModel = retorno;
+                        }
+                    });
+                    task.Wait();
+                    return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ResponseViewModel<string> responseViewModel = new ResponseViewModel<string>
+                    {
+                        Data = value,
+                        Mensagem = "O Valor não pode ser zerado.",
+                        Serializado = true,
+                        Sucesso = false
+                    };
+
+                    return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                ResponseViewModel<string> responseViewModel = new ResponseViewModel<string>
+                {
+                    Data = value,
+                    Mensagem = "Ocorreu um erro ao processar sua solicitação.",
+                    Serializado = true,
+                    Sucesso = false
+                };
+
+                return Json(responseViewModel, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         public ActionResult Solicitacoes()
