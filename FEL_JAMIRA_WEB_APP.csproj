@@ -211,6 +211,7 @@
     <Compile Include="Models\Areas\Modelagem do Sistema\FaleConosco.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Marca.cs" />
     <Compile Include="Models\Areas\Modelagem do Sistema\Pessoa.cs" />
+    <Compile Include="Models\Areas\Modelagem do Sistema\Solicitacao.cs" />
     <Compile Include="Models\Areas\MultiModelação\DadosCliente.cs" />
     <Compile Include="Models\Areas\MultiModelação\DadosEstacionamento.cs" />
     <Compile Include="Models\Areas\Util\ResponseViewModel.cs" />
