@@ -1,5 +1,4 @@
 ﻿function Finalizar(idSolicitacao) {
-    debugger;
     valor = String(idSolicitacao);
     $.ajax({
         url: "/Estacionamento/FinalizarSolicitacao",

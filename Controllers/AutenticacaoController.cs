@@ -15,6 +15,11 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
     [AllowAnonymous]
     public class AutenticacaoController : BaseController<Usuario>
     {
+        [System.Web.Http.Route("~/")]
+        public ActionResult StartApplication() 
+        {
+            return RedirectToAction("Login");
+        }
         // GET: Autenticacao/Login
         public ActionResult Login()
         {
