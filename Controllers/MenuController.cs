@@ -2,6 +2,7 @@
 using FEL_JAMIRA_WEB_APP.Models.Areas.Cliente;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Estacionamento;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Modelagem_do_Sistema;
+using FEL_JAMIRA_WEB_APP.Models.Areas.MultiModelação;
 using FEL_JAMIRA_WEB_APP.Models.Areas.Util;
 using FEL_JAMIRA_WEB_APP.Util;
 using System;
@@ -21,24 +22,70 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
         public ActionResult FaleConosco()
         {
             Cliente cliente = new Cliente();
+            Estacionamento estacionamento = new Estacionamento();
+            List<Solicitantes> solicitacoes = new List<Solicitantes>();
+            List<Solicitantes> solicitacoes2 = new List<Solicitantes>();
+            List<Solicitantes> solicitacoes3 = new List<Solicitantes>();
+
+            int level = GetLevel();
 
             var task1 = Task.Run(async () => {
                 this.token_ = await GetToken();
-
-                using (BaseController<Cliente> bUsuario = new BaseController<Cliente>())
+                if (level == 2)
                 {
+                    using (BaseController<Cliente> bUsuario = new BaseController<Cliente>())
+                    {
 
-                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Clientes/Detalhes/" + GetIdPessoa(), token_);
-                    cliente = valorRetorno.Data;
+                        var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Clientes/Detalhes/" + GetIdPessoa(), token_);
+                        cliente = valorRetorno.Data;
+                    }
+                }
+                else 
+                {
+                    using (BaseController<Estacionamento> bUsuario = new BaseController<Estacionamento>())
+                    {
+
+                        var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Estacionamentos/EstacionamentoPorPessoa?IdPessoa=" + GetIdPessoa(), token_);
+                        estacionamento = valorRetorno.Data;
+                    }
+
+                    using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
+                    {
+                        var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesEmAberto?idUsuario=" + GetIdPessoa(), await GetToken());
+                        solicitacoes = valorRetorno.Data;
+                    }
+
+                    using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
+                    {
+                        var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesParaFinalizar?idUsuario=" + GetIdPessoa(), await GetToken());
+                        solicitacoes2 = valorRetorno.Data;
+                    }
+
+                    using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
+                    {
+                        var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetUsuariosAtivosSolicitacao?idUsuario=" + GetIdPessoa(), await GetToken());
+                        solicitacoes3 = valorRetorno.Data;
+                    }
                 }
             });
             task1.Wait();
+            if (level == 2)
+            {
+                ViewBag.Nickname = cliente.Nome;
+                ViewBag.InsereAlerta = !cliente.TemCarro;
+                ViewBag.InsereAlerta2 = false;
+                ViewBag.InsereAlerta3 = false;
+                ViewBag.Level = 2;
+            }
+            else
+            {
+                ViewBag.InsereAlerta = !estacionamento.TemEstacionamento;
+                ViewBag.InsereAlerta2 = solicitacoes.Count > 0 && solicitacoes.First().NomeCliente != null ? true : false;
+                ViewBag.InsereAlerta3 = solicitacoes2.Count > 0 && solicitacoes2.First().NomeCliente != null ? true : false;
+                ViewBag.Nickname = estacionamento.Proprietario.Nome;
+                ViewBag.Level = 1;
+            }
 
-            ViewBag.Nickname = cliente.Nome;
-            ViewBag.InsereAlerta = !cliente.TemCarro;
-            ViewBag.InsereAlerta2 = false;
-            ViewBag.InsereAlerta3 = false;
-            ViewBag.Level = 2;
             ViewBag.Categorias = Helpers.GetSelectList("CategoriaFaleConosco", token_);
             return View();
         }
@@ -178,12 +225,6 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
                 using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
                 {
-                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesParaFinalizarCliente?idCliente=14", await GetToken());
-                    solicitacoes = valorRetorno.Data;
-                }
-
-                using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
-                {
                     var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesEmAberto?idUsuario=" + GetIdPessoa(), await GetToken());
                     solicitacoes = valorRetorno.Data;
                 }
@@ -199,6 +240,7 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
                     var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetUsuariosAtivosSolicitacao?idUsuario=" + GetIdPessoa(), await GetToken());
                     solicitacoes3 = valorRetorno.Data;
                 }
+
             });
             task.Wait();
             foreach (var item in recebimentos)

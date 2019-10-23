@@ -8,7 +8,6 @@ namespace FEL_JAMIRA_WEB_APP
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -16,42 +15,49 @@ namespace FEL_JAMIRA_WEB_APP
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/register").Include(
-            "~/Scripts/Mask.js",
-            "~/Scripts/Util.js",
-            "~/Scripts/jquery.validate*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/loginJs").Include(
-            "~/Scripts/Areas/Login.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/Creditos").Include(
-            "~/Scripts/jquery-{version}.js",
-            "~/Scripts/Mask.js",
-            "~/Scripts/Areas/Creditos.js"
+                        "~/Scripts/Mask.js",
+                        "~/Scripts/Util.js",
+                        "~/Scripts/jquery.validate*"
            ));
 
+            bundles.Add(new ScriptBundle("~/bundles/loginJs").Include(
+                        "~/Scripts/Areas/Login.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/Creditos").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/Mask.js",
+                        "~/Scripts/Areas/Creditos.js"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/menuFornecedor").Include(
-            "~/Scripts/Areas/MenuFornecedor.js"));
+                        "~/Scripts/Areas/MenuFornecedor.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/menuCliente").Include(
-            "~/Scripts/Areas/MenuCliente.js"));
+                        "~/Scripts/Areas/MenuCliente.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/menuEstacionamento").Include(
-            "~/Scripts/jquery-{version}.js",
-            "~/Scripts/Areas/Estacionamento.js",
-            "~/Scripts/Util.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/Areas/Estacionamento.js",
+                        "~/Scripts/Util.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/menuCarro").Include(
-            "~/Scripts/jquery-{version}.js",
-            "~/Scripts/Areas/Carro.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/Areas/Carro.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/menuFaleConosco").Include(
-            "~/Scripts/jquery-{version}.js",
-            "~/Scripts/Areas/FaleConosco.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/Areas/FaleConosco.js"
+            ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Scripts/modernizr-*"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.min.js"));

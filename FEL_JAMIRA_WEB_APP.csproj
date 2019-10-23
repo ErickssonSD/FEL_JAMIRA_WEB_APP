@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44328</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -33,7 +33,7 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -179,6 +179,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\EstacionamentoController.cs" />
+    <Compile Include="Controllers\JamiraController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -214,12 +215,18 @@
     <Compile Include="Models\Areas\Modelagem do Sistema\Solicitacao.cs" />
     <Compile Include="Models\Areas\MultiModelação\DadosCliente.cs" />
     <Compile Include="Models\Areas\MultiModelação\DadosEstacionamento.cs" />
+    <Compile Include="Models\Areas\MultiModelação\TotalEstacionamentosMensais.cs" />
     <Compile Include="Models\Areas\Util\ResponseViewModel.cs" />
     <Compile Include="Models\Areas\Util\ResponseViewModelGeneric.cs" />
     <Compile Include="Models\Areas\Util\AcessoToken.cs" />
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Areas\Autenticacao\CustomValidationCPFAttribute.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Util\AdministradorAutenticacao.cs" />
     <Compile Include="Util\Helpers.cs" />
     <Compile Include="Util\Util.cs" />
@@ -233,6 +240,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\LandingPage\agency.min.css" />
+    <Content Include="Content\LandingPage\all.min.css" />
+    <Content Include="Content\LandingPage\bootstrap.min.css" />
     <Content Include="Content\Menus\all.css" />
     <Content Include="Content\Menus\dataTables.bootstrap4.css" />
     <Content Include="Content\Menus\sb-admin-2.css" />
@@ -251,6 +261,12 @@
     <Content Include="Imagens\DinersClub.PNG" />
     <Content Include="Imagens\Elo.PNG" />
     <Content Include="Imagens\Itau.PNG" />
+    <Content Include="Imagens\LandingPage\21.jpg" />
+    <Content Include="Imagens\LandingPage\22.jpg" />
+    <Content Include="Imagens\LandingPage\23.jpg" />
+    <Content Include="Imagens\LandingPage\4.jpg" />
+    <Content Include="Content\Imagens\LandingPage\bg-events.png" />
+    <Content Include="Content\Imagens\LandingPage\map-image.png" />
     <Content Include="Imagens\Logo.PNG" />
     <Content Include="Imagens\MasterCard.PNG" />
     <Content Include="Imagens\PagSeguro.PNG" />
@@ -296,6 +312,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LandingPage\agency.min.js" />
+    <Content Include="Scripts\LandingPage\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\LandingPage\contact_me.js" />
+    <Content Include="Scripts\LandingPage\jqBootstrapValidation.js" />
+    <Content Include="Scripts\LandingPage\jquery.easing.min.js" />
+    <Content Include="Scripts\LandingPage\jquery.min.js" />
     <Content Include="Scripts\Mask.js" />
     <Content Include="Content\Areas\boot.css" />
     <Content Include="Scripts\Menu\bootstrap.bundle.min.js" />
@@ -333,6 +355,7 @@
     <Content Include="Views\Estacionamento\SolicitacoesParaFinalizar.cshtml" />
     <Content Include="Views\Estacionamento\UsuariosNoEstacionamento.cshtml" />
     <Content Include="Views\Menu\FaleConosco.cshtml" />
+    <Content Include="Views\Jamira\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -349,6 +372,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -378,8 +407,7 @@
           <IISUrl>https://localhost:44328/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://jamira.gear.host</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
