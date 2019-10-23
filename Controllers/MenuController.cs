@@ -178,6 +178,12 @@ namespace FEL_JAMIRA_WEB_APP.Controllers
 
                 using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
                 {
+                    var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesParaFinalizarCliente?idCliente=14", await GetToken());
+                    solicitacoes = valorRetorno.Data;
+                }
+
+                using (BaseController<List<Solicitantes>> bUsuario = new BaseController<List<Solicitantes>>())
+                {
                     var valorRetorno = await bUsuario.GetObjectAsyncWithToken("Solicitacao/GetSolicitacoesEmAberto?idUsuario=" + GetIdPessoa(), await GetToken());
                     solicitacoes = valorRetorno.Data;
                 }
