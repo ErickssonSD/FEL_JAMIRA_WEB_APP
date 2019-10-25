@@ -249,7 +249,6 @@
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -272,6 +271,7 @@
     <Content Include="Imagens\PagSeguro.PNG" />
     <Content Include="Imagens\Santander.PNG" />
     <Content Include="Imagens\Visa.PNG" />
+    <Content Include="Jamira_logo.ico" />
     <Content Include="ReleaseNotes.css" />
     <Content Include="Scripts\Areas\Carro.js" />
     <Content Include="Scripts\Areas\Creditos.js" />
@@ -389,6 +389,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Jamira_logo.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
